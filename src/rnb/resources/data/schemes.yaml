@@ -1,0 +1,1802 @@
+traits:
+  OPENNESS:
+    Fantasy:
+      IDEALISTICNESS:
+        op: fact
+        poles:
+          pos:
+            name: IDEALISTIC
+            glosses:
+              218: not sensible about practical matters; idealistic and unrealistic
+              Q1: Have a vivid imagination
+              Q2: Enjoy wild flights of fantasy
+              Q3: Love to daydream
+              Q4: Like to get lost in thought
+              Q5: Indulge in my fantasies
+          neg:
+            name: PRACTICAL
+            glosses:
+              618: guided by practical experience and observation rather than theory
+              626: aware or expressing awareness of things as they really are
+              788: freed from illusion
+              1232: concerned with the world or worldly matters
+              795: sensible and practical
+              Q6: Spend time reflecting on things
+              Q7: Seldom daydream
+              Q8: Do not have a good imagination
+              Q9: Seldom get lost in thought
+      SPIRITUALISTNESS:
+        op: fact
+        poles:
+          pos:
+            name: SPIRITUALIST
+            glosses:
+              357: concerned with sacred matters or religion or the church
+              657: concerned with or affecting the spirit or soul
+              829: showing great reverence for god
+              356: having or showing belief in and reverence for a deity
+              507: deeply religious
+              1193: given to examining own sensory and perceptual experiences
+          neg:
+            name: MATERIALIST
+            glosses:
+              995: denying or questioning the tenets of especially a religion
+              322: marked by materialism
+      CREATIVENESS:
+        op: creativity
+        poles:
+          pos:
+            name: CREATIVE
+            glosses:
+              349: having the ability to produce or originate
+              488: promoting construction or creation
+              489: having the ability or power to create
+              561: (used of persons or artifacts) marked by independence and creativity
+                in thought or action
+          neg:
+            name: UNIMAGINATIVE
+            glosses:
+              482: unimaginatively conventional
+              1298: deficient in originality or creativity; lacking powers of invention
+              759: unimaginative and conformist
+              1297: lacking spontaneity or originality or individuality
+              Q10: Have difficulty imagining things
+    Aesthetics:
+      AESTHETENESS:
+        op: art
+        poles:
+          pos:
+            name: AESTHETE
+            glosses:
+              166: marked by refinement in taste and manners
+              1082: relating to or characteristic of art or artists
+              Q11: Believe in the importance of art
+              Q12: Like music
+              Q13: See beauty in things that others might not notice
+              Q14: Love flowers
+              Q15: Enjoy the beauty of nature
+          neg:
+            name: TASTELESS
+            glosses:
+              Q16: Do not like art
+              Q17: Do not like poetry
+              Q18: Do not enjoy going to art museums
+              Q19: Do not like concerts
+              Q20: Do not enjoy watching dance performances
+    Feelings:
+      SENTIMENTALNESS:
+        op: perception
+        poles:
+          pos:
+            name: SENTIMENTAL
+            glosses:
+              86: able to feel or perceive
+              991: given to or marked by sentiment or sentimentality
+              Q21: Experience my emotions intensely
+              Q22: Feel others' emotions
+              Q23: Am passionate about causes
+              Q24: Enjoy examining myself and my life
+              Q25: Try to understand myself
+          neg:
+            name: UNSENTIMENTAL
+            glosses:
+              450: tired of the world
+              Q26: Seldom get emotional
+              Q27: Am not easily affected by my emotions
+              Q28: Rarely notice my emotional reactions
+              Q29: Experience very few emotional highs and lows
+              Q30: Don't understand people who get emotional
+    Actions:
+      ADVENTUROUSNESS:
+        op: danger && novelty
+        poles:
+          pos:
+            name: ADVENTUROUS
+            glosses:
+              424: willing to undertake or seeking out new and daring enterprises
+              494: disposed to venture or take risks
+              800: marked by imagination, initiative, and readiness to undertake new
+                projects
+              739: fearless and daring
+              823: marked by defiant disregard for danger or consequences
+              Q31: Prefer variety to routine
+              Q32: Like to visit new places
+              Q33: Interested in many things
+              Q34: Like to begin new things
+          neg:
+            name: UNADVENTUROUS
+            glosses:
+              129: excessively fastidious and easily disgusted
+              1241: unhappy about being away and longing for familiar things or persons
+              Q35: Prefer to stick with things that I know
+              Q37: Don't like the idea of change
+              Q36: Dislike changes
+              Q38: Am a creature of habit
+              Q39: Dislike new foods
+              Q40: Am attached to conventional ways
+      ADAPTIVENESS:
+        op: adaptation
+        poles:
+          pos:
+            name: ADAPTIVE
+            glosses:
+              423: capable of adapting (of becoming or being made suitable) to a particular
+                situation or use
+          neg:
+            name: MALADAPTIVE
+            glosses:
+              883: incapable of adapting or changing to meet circumstances
+    Ideas:
+      CULTUREDNESS:
+        op: learn
+        poles:
+          pos:
+            name: CULTURED
+            glosses:
+              167: eager to investigate and learn or learn more (sometimes about others'
+                concerns)
+              168: having curiosity aroused; eagerly interested in learning more
+              214: devoted to matters of the mind
+              884: showing curiosity
+              885: inquiring or appearing to inquire
+              888: appealing to or using the intellect
+              890: having or showing interest; especially curiosity or fascination
+                or concern
+              1020: characterized by diligent study and fondness for reading
+              Q41: Like to solve complex problems
+              Q42: Love to read challenging material
+              Q43: Have a rich vocabulary
+              Q44: Can handle a lot of information
+              Q45: Enjoy thinking about things
+          neg:
+            name: UNEDUCATED
+            glosses:
+              1046: having no care or interest in knowing
+              1047: not having or showing interest
+              749: natural and unstudied
+              Q46: Am not interested in abstract ideas
+              Q47: Avoid philosophical discussions
+              Q48: Have difficulty understanding abstract ideas
+              Q49: Am not interested in theoretical discussions
+              Q50: Avoid difficult reading material
+      BROADMINDEDNESS:
+        op: novelty && conversion
+        poles:
+          pos:
+            name: BROADMINDED
+            glosses:
+              198: ahead of the times
+              212: open to arguments, ideas, or change
+              213: ready or willing to receive favorably
+              604: ready to entertain new ideas
+              863: having an open mind
+              1246: informal terms; strikingly unconventional
+              393: showing respect for the rights or opinions or practices of others
+          neg:
+            name: BIGOTED
+            glosses:
+              223: characterized by a firm and humorless belief in the validity of
+                your opinions
+              594: lacking tolerance or flexibility or breadth of view
+              595: rigidly adhering to a particular sect or its doctrines
+              605: obstinate in your opinions
+              891: narrow-minded about cherished opinions
+              892: unwilling to tolerate difference of opinion
+              980: incapable of compromise or flexibility
+              1093: blindly and obstinately attached to some creed or opinion and
+                intolerant toward others
+              1114: not having an open mind
+              1144: characterized by assertion of unproved or unprovable principles
+    Values:
+      PROGRESSIVENESS:
+        op: progress
+        poles:
+          pos:
+            name: PROGRESSIVE
+            glosses:
+              902: having political or social views favoring reform and progress
+              1264: favoring or promoting reform (often by government action)
+              1265: favoring or promoting progress
+              Q51: Tend to vote for liberal political candidates
+          neg:
+            name: CONSERVATIVE
+            glosses:
+              481: resistant to change
+              483: having social or political views favoring conservatism
+              761: rigidly formal or bound by convention
+              1011: rigidly conventional or old-fashioned
+              1247: out of fashion
+              Q54: Believe in one true religion
+              Q55: Tend to vote for conservative political candidates
+              Q56: Believe that too much tax money goes to support artists
+              Q60: Like to stand during the national anthem
+      PERMISSIVENESS:
+        op: '!conform'
+        poles:
+          pos:
+            name: PERMISSIVE
+            glosses:
+              390: showing or characterized by broad-mindedness
+              321: conforming to the standards and conventions of the middle class
+              524: opposed to or prohibiting the production and sale of alcoholic
+                beverages
+              596: capable of being shocked
+              760: in accord with or being a tradition or practice accepted from the
+                past
+              772: conforming to conventions of sexual behavior
+              901: tolerant of change; not bound by authoritarianism, orthodoxy, or
+                tradition
+              1014: rigidly formal
+              1017: rigidly accurate; allowing no deviation from a standard
+              1117: associated in an exclusive sexual relationship
+              252: possibly accepting or permitting
+              Q52: Believe that there is no absolute right or wrong
+              Q53: Believe that criminals should receive help rather than punishment
+          neg:
+            name: AUTHORITARIAN
+            glosses:
+              Q57: Believe laws should be strictly enforced
+              Q58: Believe that we coddle criminals too much
+              Q59: Believe that we should be tough on crime
+  CONSCIENTIOUSNESS:
+    Competence:
+      ASSUREDNESS:
+        op: assurance
+        poles:
+          pos:
+            name: ASSURED
+            glosses:
+              366: showing poise and confidence in your own worth
+              479: having or marked by confidence or assurance
+              947: marked by excessive confidence
+              1290: marked by excessive complacency or self-satisfaction
+              Q64: Am sure of my ground
+          neg:
+            name: INSECURE
+            glosses:
+              136: lacking self-confidence
+              230: showing fear and lack of confidence
+              680: lacking or indicating lack of confidence or assurance
+      DECISIVENESS:
+        op: decison
+        poles:
+          pos:
+            name: DECISIVE
+            glosses:
+              478: persuaded of; very sure
+              477: not liable to error in judgment or action
+              265: characterized by decision and firmness
+              Q61: Complete tasks successfully
+              Q62: Excel in what I do
+              Q63: Handle tasks smoothly
+              Q65: Come up with good solutions
+              Q66: Know how to get things done
+          neg:
+            name: HESITANT
+            glosses:
+              1106: having or feeling no doubt or uncertainty; confident and assured
+              790: unsettled in mind or opinion
+              791: marked by or given to doubt
+              856: lacking decisiveness of character; unable to act or decide quickly
+                or firmly
+              1203: uncertain how to act or proceed
+              Q67: Misjudge situations
+              Q68: Don't understand things
+              Q69: Have little to contribute
+              Q70: Don't see the consequences of things
+              Q100: Postpone decisions
+    Orderliness:
+      METHODICALNESS:
+        op: method
+        poles:
+          pos:
+            name: METHODICAL
+            glosses:
+              1100: concise and succinct
+              1249: methodical and efficient in arrangement or function
+              278: being effective without wasting time or effort or expense
+              598: showing care in execution
+              Q75: Do things according to a plan
+          neg:
+            name: DISORGANIZED
+            glosses:
+              1107: completely unordered and unpredictable and confusing
+              1143: lacking order or methodical arrangement or function
+              1224: wildly disordered
+              Q80: Am not bothered by disorder
+      TIDYNESS:
+        op: clean
+        poles:
+          pos:
+            name: TIDY
+            glosses:
+              597: clean or organized
+              1035: marked by order and cleanliness in appearance or habits
+              Q71: Like order
+              Q72: Like to tidy up
+              Q73: Want everything to be 'just right'
+              Q74: Love order and regularity
+          neg:
+            name: MESSY
+            glosses:
+              375: lacking neatness or order
+              918: dirty and disorderly
+              Q76: Often forget to put things back in their proper place
+              Q77: Leave a mess in my room
+              Q78: Leave my belongings around
+              Q79: Am not bothered by messy people
+    Dutifulness:
+      LOYALNESS:
+        op: commitment
+        poles:
+          pos:
+            name: LOYAL
+            glosses:
+              115: steadfast in affection or allegiance
+              116: not having sexual relations with anyone except your husband or
+                wife, or your boyfriend or girlfriend
+              123: unwavering in devotion to friend or vow or cause
+              124: steadfast in allegiance or duty
+              125: inspired by love for your country
+              376: firm and dependable especially in loyalty
+              1118: bound or obligated, as under a pledge to a particular cause, action,
+                or attitude
+              1137: zealous in devotion or affection
+              Q82: Keep my promises
+          neg:
+            name: UNFAITHFUL
+            glosses:
+              Q87: Break my promises
+      VIRTUOUSNESS:
+        op: conform
+        poles:
+          pos:
+            name: VIRTUOUS
+            glosses:
+              69: morally admirable
+              76: of moral excellence
+              131: socially or conventionally correct; refined or virtuous
+              200: not offensive to sexual mores in conduct or appearance
+              302: adhering to ethical and moral principles
+              447: morally rigorous and strict
+              463: free from dirt or impurities; or having clean habits
+              464: (of behavior or especially language) free from objectionable elements;
+                fit for all observers
+              480: guided by or in accordance with conscience or sense of right and
+                wrong
+              575: free from sin
+              773: observing conventional sexual mores in speech or behavior or dress
+              774: decently clothed
+              801: conforming to accepted standards of social or professional behavior
+              965: exaggeratedly proper
+              966: marked by suitability or rightness or appropriateness
+              986: having scruples; arising from a sense of right and wrong; principled
+              987: characterized by dignity and propriety
+              1123: socially right or correct
+              1229: concerned with principles of right and wrong or conforming to
+                standards of behavior and character based on those principles
+              1348: (usually of children) someone who behaves in a manner that the
+                speaker believes is correct
+              866: of high moral or intellectual value; elevated in nature or style
+              Q83: Pay my bills on time
+              Q85: Listen to my conscience
+          neg:
+            name: IMMORAL
+            glosses:
+              53: characterized by wickedness or immorality
+              176: morally bad or wrong
+              326: having or showing an ignoble lack of honor or morality
+              409: having committed unrighteous acts
+              410: naughtily or annoyingly playful
+              411: morally bad in principle or practice
+              510: unethical or dishonest
+              678: morally reprehensible
+              813: unrestrained by convention or morality
+              933: suggestive of or tending to moral looseness
+              934: designed to incite to indecency or lust
+              985: giving offense to moral sensibilities and injurious to reputation
+              1009: morally degraded
+              1052: not conducive to good moral development
+              1054: bringing or deserving severe rebuke or censure
+              1095: unrestrained by convention or propriety
+              1184: deliberately violating accepted principles of right and wrong
+              1185: not adhering to ethical or moral principles
+              1334: without scruples or principles
+              Q88: Get others to do my duties
+      LAWABIDINGNESS:
+        op: conform
+        poles:
+          pos:
+            name: LAWABIDING
+            glosses:
+              338: dutifully complying with the commands or instructions of those
+                in authority
+              354: conforming to fact and therefore worthy of belief
+              672: demanding strict attention to rules and procedures
+              1243: (of individuals) adhering strictly to laws and rules and customs
+              Q81: Try to follow the rules
+          neg:
+            name: LAWLESS
+            glosses:
+              91: violent and lawless
+              504: boldly resisting authority or an opposing force
+              508: hard to control
+              511: violating accepted standards or rules
+              974: resisting control or authority
+              1038: characterized by unrest or disorder or insubordination
+              1089: disposed to avoid notice
+              1141: not obeying or complying with commands of those in authority
+              1142: unwilling to submit to authority
+              1018: characterized by strictness, severity, or restraint
+              1333: stubbornly persistent in wrongdoing
+              Q86: Break rules
+              Q89: Do the opposite of what is asked
+      TRUTHFULNESS:
+        op: commitment && frankness && honesty
+        poles:
+          pos:
+            name: TRUTHFUL
+            glosses:
+              297: not disposed to cheat or defraud; not deceptive or fraudulent
+              233: worthy of trust or belief
+              300: worthy of being depended on
+              353: worthy of reliance or trust
+              988: dignified and somber in manner or character and committed to keeping
+                promises
+              216: worthy of or requiring responsibility or trust; or held accountable
+              232: taking responsibility for one's conduct and obligations
+              Q84: Tell the truth
+          neg:
+            name: UNTRUTHFUL
+            glosses:
+              1124: not straight; dishonest or immoral or evasive
+              1120: contented to a fault with oneself or one's actions
+              Q90: Misrepresent the facts
+      FAIRNESS:
+        op: fairness
+        poles:
+          pos:
+            name: FAIR
+            glosses:
+              111: free from favoritism or self-interest or bias or deception; conforming
+                with established standards or rules
+              308: free from undue bias or preconceived opinions
+              309: showing lack of favoritism
+              396: without bias
+              397: characterized by a lack of partiality
+              465: exhibiting or calling for sportsmanship or fair play
+              893: fair to all parties as dictated by reason and conscience
+              1013: characterized by honesty and fairness
+              912: noble and generous in spirit
+          neg:
+            name: PREJUDICED
+            glosses:
+              962: being biased or having a belief or attitude formed beforehand
+              963: emanating from a person's emotions and prejudices
+              1092: favoring one person or side over another
+              1254: showing favoritism
+    Self-discipline:
+      CONCERNEDNESS:
+        op: concern && attention && memory
+        poles:
+          pos:
+            name: CONCERNED
+            glosses:
+              100: characterized by great determination
+              186: characterized by hard work and perseverance
+              268: characterized by care and perseverance in carrying out tasks
+              269: quietly and steadily persevering especially in detail or exactness
+              377: marked by firm determination or resolution; not shakable
+              384: tenaciously unwilling or marked by tenacious unwillingness to yield
+              506: consistent in performance or behavior
+              629: characterized by quickness and firmness
+              630: firm in purpose or belief; characterized by firmness and determination
+              789: stubbornly unyielding
+              1007: of a substantial character and not frivolous or superficial
+              1085: resembling the unthinking functioning of a machine
+              1132: desperately determined
+              747: marked by blithe unconcern
+              Q91: Get chores done right away
+              Q93: Start tasks right away
+              Q94: Get to work at once
+              Q95: Carry out my plans
+          neg:
+            name: UNCONCERNED
+            glosses:
+              43: lacking seriousness; given to frivolity
+              681: not consistent or dependable
+              750: characterized by a feeling of irresponsibility
+              752: indicating a lack of maturity
+              975: characterized by careless unconcern
+              1341: continually changing especially as from one abode or occupation
+                to another
+              Q96: Find it difficult to get down to work
+              Q98: Need a push to get started
+              Q99: Have difficulty starting tasks
+      ATTENTIVENESS:
+        op: attention && memory
+        poles:
+          pos:
+            name: ATTENTIVE
+            glosses:
+              101: devoting full strength and concentrated attention to
+              138: taking heed; giving close and thoughtful attention
+              154: exercising caution or showing care or attention
+              157: cautiously attentive
+              341: characterized by extreme care and great effort
+              358: extremely scrupulous and conscientious
+              537: exacting especially about details
+              622: acting or arriving or performed exactly at the time appointed
+              727: (often followed by `to') giving care or attention
+              1019: marked by care and effort
+              1073: giving or marked by complete attention to
+              1105: exercising or taking care great enough to bring assurance
+              1242: paying close attention especially to details
+              Q92: Am always prepared
+          neg:
+            name: INATTENTIVE
+            glosses:
+              94: marked by lack of attention or consideration or forethought or thoroughness;
+                not careful
+              288: not mindful or attentive
+              373: marked by great carelessness
+              1287: lacking in rigor or strictness
+              Q97: Waste my time
+      MINDFULNESS:
+        op: memory
+        poles:
+          pos:
+            name: MINDFUL
+            glosses: {}
+          neg:
+            name: FORGETFUL
+            glosses:
+              287: failing to keep in mind
+              289: (of memory) deficient in retentiveness or range
+    Achievement-striving:
+      AMBITIOUSNESS:
+        op: possession && success
+        poles:
+          pos:
+            name: AMBITIOUS
+            glosses:
+              10: having a strong desire for success or achievement
+              99: strongly motivated to succeed
+              148: having or showing determination and energetic pursuit of your ends
+              616: desirous of owning
+              804: of behavior that is impressive and ambitious in scale or scope
+              1216: planning prudently for the future
+              1268: serving as or indicating the existence of a purpose or goal
+              926: provided with a motive or given incentive for action
+              1286: determined
+              1340: characterized by or aspiring to impracticable perfection
+          neg:
+            name: UNAMBITIOUS
+            glosses:
+              Q108: Am not highly motivated to succeed
+      HARDWORKERNESS:
+        op: work
+        poles:
+          pos:
+            name: HARDWORKER
+            glosses:
+              221: concerned with work or important matters rather than play or trivialities
+              Q101: Go straight for the goal
+              Q102: Work hard
+              Q103: Turn plans into actions
+              Q104: Plunge into tasks with all my heart
+              Q105: Do more than what's expected of me
+              Q106: Set high standards for myself and others
+          neg:
+            name: LAZY
+            glosses:
+              81: disinclined to work or exertion
+              93: effortless and unstudied
+              244: marked by a lack of interest
+              816: lacking strength
+              Q109: Do just enough work to get by
+              Q110: Put little time and effort into my work
+    Deliberation:
+      STRATEGICNESS:
+        op: deliberation
+        poles:
+          pos:
+            name: STRATEGIC
+            glosses:
+              126: fully considered and perfected
+              141: exhibiting or characterized by careful thought
+              150: engaged in or accustomed to close observation
+              156: mindful of the future in spending money
+              215: deeply or seriously thoughtful
+              271: heedful of potential consequences
+              389: careful and diligent in the use of resources
+              840: prudent
+              989: tending to select; characterized by careful choice
+              Q111: Avoid mistakes
+              Q112: Choose my words with care
+              Q113: Stick to my chosen path
+          neg:
+            name: TACTICAL
+            glosses:
+              253: befitting a young child
+              457: cheerfully irresponsible
+              562: characterized by undue haste and lack of thought or deliberation
+              1034: showing lack of careful thought
+              1063: tending to squander and waste
+              1204: showing lack of care for consequences
+              1314: without careful prior deliberation or counsel
+              1295: recklessly wasteful
+              Q114: Jump into things without thinking
+              Q115: Make rash decisions
+              Q116: Like to act on a whim
+              Q117: Rush into things
+              Q118: Do crazy things
+              Q119: Act without thinking
+              Q120: Often make last-minute plans
+      COMMONSENSENESS:
+        op: comonsense
+        poles:
+          pos:
+            name: COMMONSENSE
+            glosses:
+              139: having intellectual depth
+              140: acting with or showing thought and good sense
+              145: marked by the exercise of good judgment or common sense in practical
+                matters
+              146: having or prompted by wisdom or discernment
+              368: showing reason or sound judgment
+              625: consistent with or based on or using reason
+              777: marked by depth of thinking
+          neg:
+            name: UNSOUND
+            glosses:
+              645: lacking depth of intellect or knowledge; concerned only with what
+                is obvious
+              664: concerned with or comprehending only what is apparent or obvious;
+                not deep or penetrating emotionally or intellectually
+              702: inconsistent with reason or logic or common sense
+              746: hasty and without attention to detail; not thorough
+              921: not marked by the use of reason
+  EXTRAVERSION:
+    Warmth:
+      FRIENDLYNESS:
+        op: friendlyness
+        poles:
+          pos:
+            name: FRIENDLY
+            glosses:
+              50: having or displaying warmth or affection
+              51: psychologically warm; friendly and responsive
+              826: diffusing warmth and friendliness
+              847: showing warm and heartfelt friendliness
+              862: disposed to treat guests and strangers with cordiality and generosity
+              1291: marked by friendly companionship with others
+              Q121: Make friends easily
+              Q122: Warm up quickly to others
+              Q123: Feel comfortable around people
+              Q124: Act comfortably with others
+              Q125: Cheer people up
+          neg:
+            name: COLD
+            glosses:
+              472: extended meanings; especially of psychological coldness; without
+                human warmth or emotion
+              487: psychologically cool and unenthusiastic; unfriendly or unresponsive
+                or showing dislike
+              520: lacking warmth or emotional involvement
+              1044: not disposed to friendship or friendliness
+              1045: not friendly
+              1109: lacking warmth of feeling
+              1320: cool and formal in manner
+              427: remote in manner
+              Q126: Am hard to get to know
+              Q127: Often feel uncomfortable around others
+              Q128: Avoid contacts with others
+              Q130: Keep others at a distance
+      KEENINTERESTEDNESS:
+        op: curiosity
+        poles:
+          pos:
+            name: KEENINTERESTED
+            glosses:
+              106: having or showing keen interest or intense desire or impatient
+                expectancy
+              107: having or showing great excitement and interest
+              420: marked by active interest and enthusiasm
+              496: earnest
+          neg:
+            name: NONGOSSIPMONGER
+            glosses:
+              Q129: Am not really interested in others
+    Gregariousness:
+      TALKATIVENESS:
+        op: smalltalk && !privacy && curiosity
+        poles:
+          pos:
+            name: TALKATIVE
+            glosses:
+              665: friendly and open and willing to talk
+              667: full of trivial conversation
+              751: prone to friendly informal communication
+              Q132: Talk to a lot of different people at parties
+          neg:
+            name: UNCOMMUNICATIVE
+            glosses:
+              641: inclined to secrecy or reticence about divulging information
+              1300: habitually reserved and uncommunicative
+              1316: not inclined to talk or give information or express opinions
+      COMPANIONABLENESS:
+        op: meeting
+        poles:
+          pos:
+            name: COMPANIONABLE
+            glosses:
+              98: done with or working with others for a common purpose or benefit
+              317: marked by dejection from being alone
+              529: not introspective; examining what is outside yourself
+              1002: inclined to or conducive to companionship with others
+              Q131: Love large parties
+              Q133: Enjoy being part of a group
+              Q134: Involve others in what I am doing
+              Q135: Love surprise parties
+          neg:
+            name: SOLITARY
+            glosses:
+              318: characterized by or preferring solitude
+              1205: remote and separate physically or socially
+              Q136: Prefer to be alone
+              Q137: Want to be left alone
+              Q138: Don't like crowded events
+              Q139: Avoid crowds
+              Q140: Seek quiet
+    Assertiveness:
+      CHARISMATICNESS:
+        op: charism
+        poles:
+          pos:
+            name: CHARISMATIC
+            glosses:
+              381: having or wielding force or authority
+              564: having the power of driving or impelling
+              958: having great power or force or potency or effect
+              959: having great influence
+              1187: having authority or ascendancy or influence
+              843: very strong or vigorous
+              Q143: Can talk others into doing things
+          neg:
+            name: UNCHARISMATIC
+            glosses:
+              403: not having authority, political strength, or governing power
+              Q146: Wait for others to lead the way
+              Q147: Keep in the background
+              Q148: Have little to say
+              Q149: Don't like to draw attention to myself
+              Q150: Hold back my opinions
+      DOMINEERINGNESS:
+        op: domination
+        poles:
+          pos:
+            name: DOMINEERING
+            glosses:
+              68: exerting force or influence
+              169: characterized by action or forcefulness or force of personality
+              518: tending to domineer
+              617: having or showing a desire to control or dominate
+              882: not making concessions
+              946: expecting unquestioning obedience
+              1145: exercising influence or control
+              1151: forceful and definite in expression or action
+              1016: severe and unremitting in making demands
+              Q141: Take charge
+              Q142: Try to lead others
+              Q144: Seek to influence others
+              Q145: Take control of things
+          neg:
+            name: SUBMISSIVE
+            glosses:
+              35: easily handled or managed
+              699: showing humiliation or submissiveness
+              916: evidencing little spirit or courage; overly submissive or compliant
+              917: very docile
+              1025: quieted and brought under control
+              1355: tending to give in or surrender or agree
+              1356: inclined to yield to argument or influence or control
+              Q281: Am easily intimidated
+      INTIMIDATINGNESS:
+        op: menace
+        poles:
+          pos:
+            name: INTIMIDATING
+            glosses:
+              143: improperly forward or bold
+              668: lofty in style
+              740: offensively bold
+              943: given to expressing yourself freely or insistently
+              1083: aggressively self-assured
+              1097: offensively self-assured or given to exercising usually unwarranted
+                power
+              1183: brusque and surly and forbidding
+              Q197: Put people under pressure
+          neg:
+            name: PLEADING
+            glosses: {}
+      SHOWYNESS:
+        op: showyness
+        poles:
+          pos:
+            name: SHOWY
+            glosses:
+              599: attracting attention by showiness or bright colors
+              631: given to rhetoric, emphasizing style at the expense of thought
+              899: characterized by extravagance and profusion
+              1190: lacking discretion; injudicious
+              461: tastelessly showy
+              1274: noisy and lacking in restraint or discipline
+          neg:
+            name: DISCRET
+            glosses:
+              1030: very restrained or quiet
+              202: free from pomp or affectation
+              1285: reluctant to draw attention to yourself
+              40: not showy or obtrusive
+    Activity:
+      LIVELYNESS:
+        op: activity
+        poles:
+          pos:
+            name: LIVELY
+            glosses:
+              6: full of spirit
+              7: full of life and energy
+              8: quick and energetic
+              9: full of zest or vigor
+              22: possessing or exerting or displaying energy
+              47: characterized by liveliness or excitement or disagreement
+              651: quick and brisk
+              718: having life or vigor or spirit
+              719: (often followed by `with') full of life and spirit
+              771: lively and spirited
+              1099: fresh and animated
+              1277: imparting vitality and energy
+              Q155: React quickly
+          neg:
+            name: LANGUID
+            glosses:
+              11: not agitated; without losing self-possession
+              39: in a softened tone
+              82: moving slowly and gently
+              103: lacking in liveliness or animation
+              225: not moving quickly; taking a comparatively long time
+              245: showing little or no emotion or animation
+              662: moving slowly
+              848: lacking lightness or liveliness
+              998: slow and apathetic
+              1098: dull and slow-moving and stolid; like an ox
+              1209: lacking spirit or liveliness
+              Q156: Like to take it easy
+              Q158: Like a leisurely lifestyle
+              Q159: Let things proceed at their own pace
+              Q160: React slowly
+      ACTIVENESS:
+        op: activity
+        poles:
+          pos:
+            name: ACTIVE
+            glosses:
+              23: working hard to promote an enterprise
+              246: vigorously active
+              686: characterized by forceful and energetic action or activity
+              708: characterized by energetic activity
+              709: full of activity or engaged in continuous activity
+              712: taking part in an activity
+              1036: showing sustained enthusiastic action with unflagging vitality
+              710: disposed to take action or effectuate change
+              Q151: Am always busy
+              Q152: Am always on the go
+              Q153: Do a lot in my spare time
+              Q154: Can manage many things at the same time
+          neg:
+            name: APATHETIC
+            glosses:
+              104: so lacking in interest as to cause mental weariness
+              343: lacking in energy or will
+              522: lacking interest or stimulation; dull and lifeless
+              1211: deficient in alertness or activity
+    Excitement-seeking:
+      PLAYFULNESS:
+        op: pleasure
+        poles:
+          pos:
+            name: PLAYFUL
+            glosses:
+              579: casual and unrestrained in sexual behavior
+              698: free from constraint
+              794: hearty and lusty
+              910: displaying luxury and furnishing gratification to the senses
+              1161: like a coquette
+              1329: not inhibited or restrained
+              108: unrestrained, especially with regard to feelings
+              109: joyously unrestrained
+              Q161: Love excitement
+              Q162: Seek adventure
+              Q163: Love action
+              Q164: Enjoy being part of a loud crowd
+              Q166: Act wild and crazy
+              Q167: Willing to try anything once
+              Q168: Seek danger
+          neg:
+            name: ASCETIC
+            glosses:
+              160: avoiding excess
+              222: completely lacking in playfulness
+              519: practicing complete abstinence from alcoholic beverages
+              584: marked by temperance in indulgence
+              1140: having a strong distaste from surfeit
+              1179: devoted to home duties and pleasures
+              Q169: Would never go hang gliding or bungee jumping
+              Q170: Dislike loud music
+    Positive-emotions:
+      JOYFULNESS:
+        op: prone[MOOD[joy]]
+        poles:
+          pos:
+            name: JOYFUL
+            glosses:
+              12: being full of or promoting cheer; having or showing good spirits
+              17: intensely enthusiastic about or preoccupied with
+              49: easily aroused or excited
+              61: characterized by happiness or gladness
+              187: full of or showing high-spirited merriment
+              497: having a cheerful, lively, and self-confident air
+              742: full of or showing high spirits
+              807: joyful and proud especially because of triumph or success
+              857: happy and excited and energetic
+              1154: easily excited
+              1170: having an easygoing and cheerful disposition
+              1136: playful in an appealingly bold way
+              Q171: Radiate joy
+              Q172: Have a lot of fun
+              Q173: Express childlike joy
+              Q174: Laugh my way through life
+              Q175: Love life
+              Q176: Look at the bright side of life
+              Q177: Laugh aloud
+              Q178: Amuse my friends
+          neg:
+            name: BLASE
+            glosses:
+              470: feeling or showing no enthusiasm
+              841: dispassionate
+              1257: showing little emotion
+              449: uninterested because of frequent exposure or indulgence
+              Q179: Am not easily amused
+              Q180: Seldom joke around
+  AGREEABLENESS:
+    Trust:
+      TRUSTFULNESS:
+        op: trust
+        poles:
+          pos:
+            name: TRUSTFUL
+            glosses:
+              551: easily tricked because of being too trusting
+              552: naive and easily deceived or tricked
+              666: unwisely talking too much
+              254: exhibiting childlike simplicity and credulity
+              Q181: Trust others
+              Q182: Believe that others have good intentions
+              Q183: Trust what people say
+              Q184: Believe that people are basically moral
+              Q185: Believe in human goodness
+          neg:
+            name: SUSPICIOUS
+            glosses:
+              122: suspicious or unduly suspicious or fearful of being displaced by
+                a rival
+              135: wary and distrustful; disposed to avoid persons or things
+              765: believing the worst of human nature and motives; having a sneering
+                disbelief in e.g. selflessness of others
+              Q187: Distrust people
+              Q188: Suspect hidden motives in others
+              Q189: Am wary of others
+              Q190: Believe that people are essentially evil
+      UNGARDEDNESS:
+        op: '!privacy'
+        poles:
+          pos:
+            name: UNGARDED
+            glosses:
+              1311: inclined to believe or confide readily; full of trust
+          neg:
+            name: SECRETIVE
+            glosses:
+              400: openly distrustful and unwilling to confide
+              769: secret
+    Straightforwardness:
+      HONESTNESS:
+        op: honesty
+        poles:
+          pos:
+            name: HONEST
+            glosses:
+              224: open and genuine; not deceitful
+              1146: characterized by plain blunt honesty
+              Q191: Would never cheat on my taxes
+              Q192: Stick to the rules
+          neg:
+            name: DISHONEST
+            glosses:
+              394: marked by skill in deception
+              653: marked by deception
+              915: skillful in influencing or controlling others to your own advantage
+              Q194: Use others for my own ends
+              Q195: Know how to get around the rules
+              Q196: Cheat to get ahead
+              Q199: Take advantage of others
+              Q200: Obstruct others' plans
+      FRANKNESS:
+        op: frankness
+        poles:
+          pos:
+            name: FRANK
+            glosses:
+              293: characterized by directness in manner or speech; without subtlety
+                or evasion
+              299: without dissimulation; frank
+              339: openly straightforward and direct without reserve or secretiveness
+              371: easy and not involved or complicated
+              1012: without evasion or compromise
+          neg:
+            name: INSINCERE
+            glosses:
+              395: not to be trusted
+              445: harshly ironic or sinister
+              499: marked by deliberate deceptiveness especially by pretending one
+                set of feelings and acting under the influence of another
+              521: humorously sarcastic or mocking
+              602: attentive in an ingratiating or servile manner
+              603: attempting to win favor from influential people by flattery
+              608: given to or characterized by presenting specious arguments
+              776: exhibiting great cunning usually with secrecy
+              802: deliberately vague or ambiguous
+              815: attempting to win favor by flattery
+              927: effusively or insincerely emotional
+              999: smoothly agreeable and courteous with a degree of sophistication
+              1081: artificially formal
+              1197: highly complex or intricate and occasionally devious
+              1284: tending to entice into a desired action or state
+              Q193: Use flattery to get ahead
+              Q198: Pretend to be concerned for others
+    Altruism:
+      GENEROUSNESS:
+        op: giveness
+        poles:
+          pos:
+            name: GENEROUS
+            glosses:
+              4: agreeable, conducive to comfort
+              5: having or showing a tender and considerate and helpful nature; used
+                especially of persons and their behavior
+              63: willing to give and share unstintingly
+              64: not petty in character and mind
+              435: given or giving freely
+              831: disposed to bestow favors
+              834: affording comfort or pleasure
+              898: very generous
+              1050: not greedy
+              Q202: Anticipate the needs of others
+          neg:
+            name: GREEDY
+            glosses:
+              324: (used of persons or behavior) characterized by or indicative of
+                lack of generosity
+              549: immoderately desirous of acquiring e.g. wealth
+              378: unwilling to spend
+              996: giving or spending with reluctance
+              1008: meanly avaricious and mercenary
+              1059: excessively greedy and grasping
+              1252: excessively unwilling to spend
+              1309: unwilling to part with money
+      COOPERATIVENESS:
+        op: cooperation
+        poles:
+          pos:
+            name: COOPERATIVE
+            glosses:
+              2: inclined to help or support; not antagonistic or hostile
+              36: providing assistance or serving a useful function
+              80: eagerly disposed to act or to be of service
+              350: (usually followed by `of') solicitously caring or mindful
+              351: intended or adapted to afford protection of some kind
+              352: showing care
+              484: showing concern for the rights and feelings of others
+              525: furnishing support and encouragement
+              Q203: Love to help others
+              Q204: Am concerned about others
+          neg:
+            name: ANTAGONISTIC
+            glosses:
+              864: characterized by enmity or ill will
+              1103: stubbornly obstructive and unwilling to cooperate
+              Q206: Look down on others
+      SELFSACRIFYINGNESS:
+        op: sacrifice
+        poles:
+          pos:
+            name: SELFSACRIFYING
+            glosses:
+              1051: disregarding your own advantages and welfare over those of others
+              1283: marked by utter benignity; resembling or befitting an angel or
+                saint
+          neg:
+            name: SELFISH
+            glosses:
+              219: concerned chiefly or only with yourself and your advantage to the
+                exclusion of others
+              256: showing self-interest and shrewdness in dealing with others
+              990: limited to or caring only about yourself and your own needs
+              Q209: Turn my back on others
+              Q210: Take no time for others
+    Compliance:
+      AFABLENESS:
+        op: friendlyness
+        poles:
+          pos:
+            name: AFABLE
+            glosses:
+              1301: showing skill and sensitivity in dealing with people
+              1302: having or showing a sense of what is fitting and considerate in
+                dealing with others
+              611: showing regard for others in manners, speech, behavior, etc.
+              762: characterized by courtesy and gracious good manners
+              833: characterized by kindness and warm courtesy especially of a king
+                to his subjects
+              1169: disposed to please
+              73: agreeable or pleasing
+              133: (of persons) having pleasing manners or behavior
+              211: at ease in talking to others
+              591: offering fun and gaiety
+              128: exhibiting courtesy and politeness
+              Q211: Am easy to satisfy
+          neg:
+            name: INSUFFERABLE
+            glosses:
+              207: exasperatingly difficult to handle or circumvent
+              209: badly behaved
+              239: surprisingly and unceremoniously brusque in manner
+              243: causing irritation or annoyance
+              362: socially incorrect in behavior
+              363: lacking civility or good manners
+              369: marked by rude or peremptory shortness
+              448: ill-mannered and coarse and contemptible in behavior or appearance
+              516: unpleasant to interact with
+              763: annoying and unpleasant
+              779: difficult to handle; requiring great tact
+              1102: having a difficult and contrary disposition
+              1304: lacking or showing a lack of what is fitting and considerate in
+                dealing with others
+              639: expressing or expressive of ridicule that wounds
+              707: harsh or corrosive in tone
+              787: unequivocally detestable
+              855: very unpleasant
+              924: abusing vocally; expressing contempt or ridicule
+              925: playfully vexing (especially by ridicule)
+              932: offensively curious or inquisitive
+              1312: extremely irritating to the nerves
+              Q214: Have a sharp tongue
+              Q217: Yell at people
+              Q218: Insult people
+      CONCILIATORYNESS:
+        op: agreement
+        poles:
+          pos:
+            name: CONCILIATORY
+            glosses:
+              97: willing to adjust to differences in order to obtain agreement
+              426: prepared to agree or consent
+              879: being favorably inclined
+              1004: willing to negotiate and compromise
+              880: characterized by or given to yielding to the wishes of someone
+              Q212: Can't stand confrontations
+              Q213: Hate to seem pushy
+          neg:
+            name: CONFRONTATIONAL
+            glosses:
+              149: characteristic of an enemy or one eager to fight
+              474: having or showing a ready disposition to fight
+              475: striving to overcome in argument
+              476: inclined or showing an inclination to dispute or disagree, even
+                to engage in law suits
+              534: ruthless in competition
+              623: given to quarreling
+              724: given to or characterized by argument
+              844: unreasonably rigid in the face of argument or entreaty or attack
+              865: impossible to bring into friendly accord
+              1324: not to be placated or appeased or moved by entreaty
+              1040: defiantly aggressive
+              Q215: Contradict others
+              Q216: Love a good fight
+      TOLERANTNESS:
+        op: tolerance
+        poles:
+          pos:
+            name: TOLERANT
+            glosses:
+              3: tolerant and forgiving under provocation
+              344: peacefully resistant in response to injustice
+              881: tolerant or lenient
+              1074: tolerating without protest
+          neg:
+            name: OFENSABLE
+            glosses:
+              1037: quick to take offense
+              1053: disposed to seek revenge or intended for revenge
+              Q219: Get back at others
+              Q220: Hold a grudge
+      FORGIVINGNESS:
+        op: forgiveness
+        poles:
+          pos:
+            name: FORGIVING
+            glosses:
+              1162: providing absolution
+              1163: inclined or able to forgive and show mercy
+              1228: showing or giving mercy
+              436: generous and understanding and tolerant
+          neg:
+            name: REPROACHING
+            glosses:
+              492: marked by a tendency to find and call attention to errors and flaws
+              705: expressing offensive reproach
+              1323: unwilling or unable to forgive or show mercy
+    Modesty:
+      HUMBLENESS:
+        op: humility && !assurance
+        poles:
+          pos:
+            name: HUMBLE
+            glosses:
+              201: marked by simplicity; having a humble opinion of yourself
+              203: humble in spirit or manner; suggesting retiring mildness or even
+                cowed submissiveness
+              270: marked by prudence or modesty and wise self-restraint
+              298: without pretensions
+              559: marked by meekness or modesty; not arrogant or prideful
+              Q221: Dislike being the center of attention
+              Q222: Dislike talking about myself
+              Q223: Consider myself an average person
+              Q224: Seldom toot my own horn
+          neg:
+            name: ARROGANT
+            glosses:
+              38: feeling self-respect or pleasure in something by which you measure
+                your self-worth; or being a reason for pride
+              153: having or showing feelings of unwarranted importance out of overbearing
+                pride
+              262: characteristic of false pride; having an exaggerated sense of self-importance
+              439: feeling self-importance
+              440: exhibiting self-importance
+              554: having or showing arrogant superiority to and disdain of those
+                one views as unworthy
+              654: befitting or characteristic of those who incline to social exclusiveness
+                and who rebuff the advances of people considered inferior
+              655: (used colloquially) overly conceited or arrogant
+              798: characteristic of those having an inflated idea of their own importance
+              897: ostentatiously lofty in style
+              984: filled with satisfaction
+              1026: expressive of contempt
+              1166: used of temperament or behavior; lacking restraint or modesty
+              1186: having or suggesting a consciousness of high position
+              1339: presumptuously arrogant
+              803: marked by exaggerated feelings of euphoria and delusions of grandeur
+              Q225: Believe that I am better than others
+              Q226: Think highly of myself
+              Q227: Have a high opinion of myself
+              Q228: Know the answers to many questions
+              Q229: Boast about my virtues
+              Q230: Make myself the center of attention
+    Tender-mindedness:
+      COMFORTINGNESS:
+        op: comfort
+        poles:
+          pos:
+            name: COMFORTING
+            glosses:
+              1: characteristic of or befitting a friend
+              31: having or showing a kindly or tender nature
+              32: quiet and soothing
+              33: soft and mild; not harsh or stern or severe
+              320: feeling or showing love and affection
+              387: expressing or feeling or resulting from sympathy or compassion
+                or friendly fellow feelings; disposed toward
+              1001: friendly and pleasant
+              1027: having a sweet nature befitting an angel or cherub
+              1233: exhibiting the qualities expected in a friendly neighbor
+              1276: restoring confidence and relieving anxiety
+              Q201: Make people feel welcome
+              Q205: Have a good word for everyone
+              Q208: Make people feel uncomfortable
+          neg:
+            name: HARSH
+            glosses:
+              90: not given to gentleness or sentimentality
+              635: unkind or cruel or uncivil
+              636: unpleasantly stern
+              638: without mercy or pity
+              993: harsh
+              1072: sharply disagreeable; rigorous
+              1176: lacking in feeling or pity or warmth
+              1189: lacking regard for the rights or feelings of others
+              1075: impervious to pleas, persuasion, requests, reason
+              Q236: Tend to dislike soft-hearted people
+              Q238: Try not to think about the needy
+              Q239: Believe people should fend for themselves
+              Q240: Can't stand weak people
+      HARMLESSNESS:
+        op: '!agression'
+        poles:
+          pos:
+            name: HARMLESS
+            glosses:
+              571: lacking intent or capacity to injure
+              578: having or proceeding from an innately kind disposition
+              1174: not causing or capable of causing harm
+              Q233: Value cooperation over competition
+          neg:
+            name: HARMFUL
+            glosses:
+              165: (of persons or their actions) able or disposed to inflict pain
+                or suffering
+              505: extremely evil or cruel; expressive of cruelty or befitting hell
+              923: deliberately causing harm or damage
+              948: causing physical or psychological pain
+              1173: causing or capable of causing harm
+              1345: susceptible to attack
+              Q237: Believe in an eye for an eye
+      EMPATHICNESS:
+        op: perception && empathy
+        poles:
+          pos:
+            name: EMPATHIC
+            glosses:
+              87: being susceptible to the attitudes, feelings, or circumstances of
+                others
+              137: considerate of the feelings or well-being of others
+              192: (of characters in literature or drama) evoking empathic or sympathetic
+                feelings
+              229: given to sympathy or gentleness or sentimentality
+              272: unobtrusively perceptive and sympathetic
+              385: showing or motivated by sympathy and understanding and generosity
+              757: feeling or showing worry or solicitude
+              1005: compassionate and kind; conciliatory
+              1119: showing or having compassion
+              1319: characterized by understanding based on comprehension and discernment
+                and empathy
+              1104: feeling and exhibiting concern and empathy for others
+              Q231: Sympathize with the homeless
+              Q232: Feel sympathy for those who are worse off than myself
+              Q234: Suffer from others' sorrows
+          neg:
+            name: INSENSITIVE
+            glosses:
+              105: blunted in responsiveness or sensibility
+              473: without compunction or human feeling
+              568: showing no care or concern in attitude or action
+              569: (usually followed by `to') unwilling or refusing to pay heed
+              1033: without care or thought for others
+              1128: (followed by `to') not showing human feeling or sensitivity; unresponsive
+              1317: lacking in interest or care or feeling
+              1303: revealing lack of perceptiveness or judgment or finesse
+              Q207: Am indifferent to the feelings of others
+              Q235: Am not interested in other people's problems
+  NEUROTICISM:
+    Anxiety:
+      WORRIEDNESS:
+        op: '!danger'
+        poles:
+          pos:
+            name: WORRIED
+            glosses:
+              46: uncomfortable because of possible danger or trouble
+              84: easily agitated
+              85: causing or fraught with or showing anxiety
+              158: full of cares or anxiety
+              159: showing careful forethought
+              238: mentally upset over possible misfortune or danger etc
+              314: nervous and unable to relax
+              715: feeling worry or concern or insecurity
+              1039: characterized by or indicative of distress or affliction or danger
+                or need
+              1060: carefully observant or attentive; on the lookout for possible
+                danger
+              1043: lacking or not affording physical or mental rest
+              1251: suffering from paranoia
+              1258: suffering from irrational fears
+              1266: characteristic of or suffering from psychosis
+              743: characterized by great caution and wariness
+              Q241: Worry about things
+              Q243: Am afraid of many things
+              Q244: Get stressed out easily
+              Q245: Get caught up in my problems
+          neg:
+            name: RELAXED
+            glosses:
+              260: free from stress or conducive to mental ease; having or affording
+                peace of mind
+              340: without undue constriction as from e.g. tenseness or inhibition
+              458: free of trouble and worry and care
+              642: free from fear or doubt; easy in mind
+              796: free from worry or anxiety
+              797: not hurried or forced
+              896: unhurried and relaxed
+              976: without strain or anxiety
+              1212: carefree and happy and lighthearted
+              1318: easy in mind; not worried
+              1121: satisfied or showing satisfaction with things as they are
+              Q246: Am not easily bothered by things
+              Q247: Am relaxed most of the time
+              Q248: Am not easily disturbed by events
+              Q249: Don't worry about things that have already happened
+              Q250: Adapt easily to new situations
+      PESSIMISTNESS:
+        op: '!expectation'
+        poles:
+          pos:
+            name: PESSIMIST
+            glosses:
+              951: expecting the worst possible outcome
+              671: threatening or foreshadowing evil or tragic developments
+              Q242: Fear for the worst
+          neg:
+            name: OPTIMIST
+            glosses:
+              13: pleasantly (even unrealistically) optimistic
+              861: having or manifesting hope
+              938: expecting the best in this best of all possible worlds
+              939: expecting the best
+              Q186: Think that all will be well
+      DEMANDINGNESS:
+        op: reassurance
+        poles:
+          pos:
+            name: DEMANDING
+            glosses:
+              784: relying on or requiring a person or thing for support, supply,
+                or what is needed
+              928: demanding or needing attention, affection, or reassurance to an
+                excessive degree
+              1042: lacking a sense of security or affording no ease or reassurance
+              1010: having the character or disposition harmed by pampering or oversolicitous
+                attention
+          neg:
+            name: SELF-ASSURED
+            glosses:
+              538: showing inappropriate levity
+              1003: not burdensome or demanding; borne or done easily and without
+                hardship
+    Angry-Hostility:
+      CHOLERICNESS:
+        op: prone[MOOD[anger]]
+        poles:
+          pos:
+            name: CHOLERIC
+            glosses:
+              442: marked by anger or resentment or hostility
+              533: violently agitated and turbulent
+              512: expressing or revealing hostility or dislike
+              679: inclined to anger or bad feelings with overtones of menace
+              688: characterized by violence or bloodshed
+              735: proceeding from or exhibiting great hostility or animosity
+              870: indicating hostility or enmity
+              1198: characterized by anger
+              1199: quickly aroused to anger
+              1354: vehemently incensed and condemnatory
+              55: capable of harming
+              264: involving or causing danger or risk; liable to hurt or harm
+              634: ready and able to resort to force or violence
+              685: marked by deep ill will; deliberately harmful
+              704: characterized by physical or psychological maltreatment
+              Q251: Get angry easily
+              Q255: Lose my temper
+          neg:
+            name: NONCHOLERIC
+            glosses:
+              Q257: Seldom get mad
+      IRRITABLENESS:
+        op: prone[MOOD[irritation]]
+        poles:
+          pos:
+            name: IRRITABLE
+            glosses:
+              181: annoyed and irritable
+              242: troubled persistently especially with petty annoyances
+              621: very irritable
+              517: emotionally unstable and having difficulty coping with personal
+                relationships
+              1032: easily irritated or annoyed
+              972: discontented as toward authority
+              543: habitually complaining
+              Q252: Get irritated easily
+              Q253: Get upset easily
+              Q254: Am often in a bad mood
+          neg:
+            name: CAREFREE
+            glosses:
+              132: not easily irritated
+              Q256: Rarely get irritated
+              Q258: Am not easily annoyed
+              Q259: Keep my cool
+              Q260: Rarely complain
+      MALICIOUSNESS:
+        op: prone[MOOD[jealousy]] && malice
+        poles:
+          pos:
+            name: MALICIOUS
+            glosses:
+              121: showing extreme cupidity; painfully desirous of another's advantages
+              325: characterized by malice
+              658: showing malicious ill will and a desire to hurt; motivated by spite
+              734: marked by strong resentment or cynicism
+              716: having feelings of aversion or unwillingness
+              175: having or exerting a malignant influence
+              1094: marked by or arising from malice
+              1135: showing the cunning or ingenuity or wickedness typical of a devil
+              208: offensive or even (of persons) malicious
+              588: having the nature of or resulting from malice
+          neg:
+            name: MERCIFUL
+            glosses: {}
+    Impulsiveness:
+      INSTINCTIVENESS:
+        op: deliberation
+        poles:
+          pos:
+            name: INSTINCTIVE
+            glosses:
+              310: unthinking; prompted by (or as if by) instinct
+              563: determined by chance or impulse or whim rather than by necessity
+                or reason
+              565: proceeding from natural feeling or impulse without external stimulus
+              822: guided by whim and fancy
+              1086: without volition or conscious control
+              Q262: Don't know why I do some of the things I do
+              Q263: Do things I later regret
+          neg:
+            name: DELIBERATE
+            glosses:
+              399: marked by keen caution and watchful prudence
+              493: characterized by careful evaluation and judgment
+              1261: marked by balance or equilibrium and readiness for action
+              889: involving intelligence rather than emotions or instinct
+              155: unhurried and with care and dignity
+      FIERCENESS:
+        op: fierceness
+        poles:
+          pos:
+            name: FIERCE
+            glosses:
+              415: marked by extreme lack of restraint or control
+              535: marked by extreme intensity of emotions or convictions; inclined
+                to react violently; fervid
+              689: acting with or marked by or resulting from great force or energy
+                or emotional intensity
+              1182: characterized by or arising from psychoneurotic hysteria
+              1335: highly or violently reactive
+              Q264: Go on binges
+          neg:
+            name: PLACID
+            glosses:
+              113: not excessive or extreme
+              606: devoid of violence or disruption
+              1260: in full control of your faculties
+              1347: free from psychological disorder
+              Q270: Never splurge
+      MOODYNESS:
+        op: moodyness
+        poles:
+          pos:
+            name: MOODY
+            glosses:
+              527: liable to sudden unpredictable change
+              528: likely to perform unpredictably
+              592: subject to sharply varying moods
+              682: subject to change
+              745: changeable
+              1336: disposed to psychological variability
+              1342: marked by erratic changeableness in affections or attachments
+              Q275: Have frequent mood swings
+          neg:
+            name: STABLE
+            glosses:
+              659: firm and dependable; subject to little fluctuation
+              1041: conforming to the same principles or course of action over time
+      TEMPTABLENESS:
+        op: moodyness
+        poles:
+          pos:
+            name: TEMPTABLE
+            glosses:
+              Q261: Often eat too much
+              Q265: Love to eat
+          neg:
+            name: UNTEMPTABLE
+            glosses:
+              Q266: Rarely overindulge
+              Q267: Easily resist temptations
+              Q268: Am able to control my cravings
+              Q269: Never spend more than I can afford
+    Depression:
+      MELANCHOLICNESS:
+        op: prone[MOOD[sadness]]
+        poles:
+          pos:
+            name: MELANCHOLIC
+            glosses:
+              134: experiencing or showing sorrow or unhappiness
+              267: filled with melancholy and despondency
+              589: grave or even gloomy in character
+              590: characterized by or causing or expressing sadness
+              663: sullen or moody
+              696: very unhappy; full of misery
+              828: moody and melancholic
+              837: sorrowful through loss or deprivation
+              851: marked by great psychological weight; weighted down especially
+                with sadness or troubles or weariness
+              950: showing pensive sadness
+              1325: generalized feeling of distress
+              1326: marked by or producing unhappiness
+              1327: experiencing or marked by or causing sadness or sorrow or discontent
+              593: showing a brooding ill humor
+              Q271: Often feel blue
+              Q272: Dislike myself
+              Q273: Am often down in the dumps
+              Q274: Have a low opinion of myself
+              Q277: Feel that my life lacks direction
+          neg:
+            name: CHEERFUL
+            glosses:
+              581: psychologically light; especially free from sadness or troubles
+              Q278: Seldom feel blue
+              Q279: Feel comfortable with myself
+              Q280: Am very pleased with myself
+      REMORSEFULNESS:
+        op: prone[MOOD[regret]]
+        poles:
+          pos:
+            name: REMORSEFUL
+            glosses:
+              726: feeling shame or guilt or embarrassment or remorse
+              736: expressive of severe grief or regret
+              1255: feeling or expressing remorse for misdeeds
+          neg:
+            name: UNPENITENT
+            glosses:
+              1332: not penitent or remorseful
+    Self-consciousness:
+      SHYNESS:
+        op: '!showyness'
+        poles:
+          pos:
+            name: SHY
+            glosses:
+              643: excessively and uncomfortably conscious of your appearance or behavior
+              644: aware of yourself as an individual or of your own being and actions
+                and thoughts
+              729: socially uncomfortable; unsure and constrained in manner
+              977: marked by self-restraint and reticence
+              1090: self-consciously timid
+              546: marked by quiet and caution and secrecy; taking pains to avoid
+                being observed
+              Q282: Am afraid that I will do the wrong thing
+              Q283: Find it difficult to approach others
+              Q284: Am afraid to draw attention to myself
+              Q285: Only feel comfortable with friends
+              Q286: Stumble over my words
+          neg:
+            name: OUTGOING
+            glosses:
+              Q287: Am not embarrassed easily
+              Q288: Am comfortable in unfamiliar situations
+              Q289: Am not bothered by difficult social situations
+              Q290: Am able to stand up for myself
+    Vulnerability:
+      EMOTIONALNESS:
+        op: emotionality
+        poles:
+          pos:
+            name: EMOTIONAL
+            glosses:
+              24: (of persons) excessively affected by emotion
+              374: excessively or abnormally emotional
+              541: vulnerably delicate
+              1077: characterized by emotion
+              1343: capable of being wounded or hurt
+              1344: susceptible to criticism or persuasion or temptation
+              1181: marked by excessive or uncontrollable emotion
+              342: having or expressing strong emotions
+              1280: readily reacting or replying to people or events or stimuli; showing
+                emotion
+              1221: expressing deep emotion
+              Q295: Get overwhelmed by emotions
+          neg:
+            name: STABLE
+            glosses:
+              485: marked by calm self-control (especially in trying circumstances);
+                unemotional
+              633: strong enough to withstand or overcome intellectual challenges
+                or adversity
+              744: emotionally hardened
+              1308: insensitive to criticism
+              1321: unsusceptible to or destitute of or showing no emotion
+              523: not shedding tears
+              1108: not characterized by emotion
+              Q296: Remain calm under pressure
+              Q297: Can handle complex problems
+              Q300: Am calm even in tense situations
+      HOPELESSNESS:
+        op: prone[MOOD[despair]]
+        poles:
+          pos:
+            name: HOPELESS
+            glosses:
+              555: unable to manage independently
+              701: showing utter resignation or hopelessness
+              1131: arising from or marked by despair or loss of hope
+              Q276: Feel desperate
+              Q292: Become overwhelmed by events
+              Q293: Feel that I'm unable to deal with things
+              Q294: Can't make up my mind
+          neg:
+            name: HOPEFUL
+            glosses: {}
+      COWARDLYNESS:
+        op: '!danger'
+        poles:
+          pos:
+            name: COWARDLY
+            glosses:
+              263: lacking courage; ignobly timid and faint-hearted
+              291: wanting in moral strength, courage, or will; having the attributes
+                of man as opposed to e.g. divine beings
+              402: likely to fail under stress or pressure
+              231: lacking conviction or boldness or courage
+              Q291: Panic easily
+          neg:
+            name: COURAGEOUS
+            glosses:
+              57: invulnerable to fear or intimidation
+              58: possessing or displaying courage; able to face and deal with danger
+                or fear without flinching
+              284: oblivious of dangers or perils or calmly resolute in facing them
+              609: marked by courage and determination in the face of difficulties
+                or danger; robust and uninhibited
+              610: showing courage
+              1130: showing extreme courage; especially of actions courageously undertaken
+                in desperation as a last resort
+              1194: incapable of being overcome or subdued
+              347: enduring trying circumstances with even temper or characterized
+                by such endurance
+              391: showing the capacity for endurance
+              748: not showing effort or strain
+              Q298: Know how to cope
+              Q299: Readily overcome setbacks

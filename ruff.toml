@@ -1,0 +1,41 @@
+# Target Python version
+target-version = "py312"
+line-length = 100
+
+# Directories Ruff should lint 
+src = ["src", "tests"]
+
+# Files/directories to ignore 
+exclude = [ ".git", "__pycache__", "build", "dist", ".venv", ".mypy_cache" , ".ruff_cache"]
+
+# Ruff lint rules
+[lint]
+# E/F: pycodestyle/pyflakes
+# I: import sorting
+# UP: pyupgrade
+# B: bugbear
+# S: bandit-style security checks
+select = ["E", "F", "I", "UP", "B", "S"]
+
+# rule families Ruff is allowed to auto-fix
+fixable = [
+    "I", # import sorting
+    "F", # pyflakes (unused imports, etc.)
+    "UP", # pyupgrade (auto-fixes for modern Python)
+    "B" # bugbear (some fixes for common issues such as using 'str.join' over concatenation)
+]
+unfixable = []
+
+# Rules to ignore
+ignore = [
+    "E501",   # line length (Black handles this)
+]
+
+[lint.per-file-ignores] 
+# S101: allow 'assert' in tests (Bandit considers assert a "debug-only" statement)
+"tests/*" = ["S101"]
+"examples/*" = ["S101"]
+
+[lint.isort] # import sorting settings
+known-first-party = ["rnb4llm"] # name of the main package
+combine-as-imports = false # combine imports with 'as'
