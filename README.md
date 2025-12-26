@@ -263,6 +263,37 @@ This demonstrates:
 - Dynamic mood and affect evolution
 - Observable behavioral differences based on personality state
 
+### Option F: Use Gloss-Based Influence Operators
+
+Generate behavioral context directly from WordNet glosses:
+```python
+from rnb.personality import PersonalityStateFactory
+from rnb.influence import (
+    GlossBasedInfluence, 
+    InfluenceContext,
+    ContextStyle
+)
+
+# Create personality
+factory = PersonalityStateFactory.from_default_resources()
+state = factory.from_adjectives("agent", ["imaginative", "organized"])
+
+# Create gloss-based operator
+op = GlossBasedInfluence.from_default_resources(
+    threshold=0.3,
+    style=ContextStyle.DESCRIPTIVE,
+    max_glosses=6
+)
+
+# Apply to prompt
+context = InfluenceContext.from_personality(state)
+base_prompt = "Explain recursion."
+modified_prompt = op.apply(base_prompt, context)
+
+# modified_prompt now includes personality-appropriate behavioral context
+# derived from WordNet glosses, not hardcoded templates
+```
+
 ### Using Personality with Influence System
 
 ```python
@@ -1100,7 +1131,10 @@ class CustomInfluence(InfluenceOperator):
 - [x] **Memory unit tests** (31 tests, all passing)
 - [x] **Memory integration tests** (5 end-to-end tests with LLM)
 - [x] **Memory-aware agent example** (complete Model M demonstration)
-- [ ] **Gloss-based influence operators** (behavioral expressions from glosses)
+- [x] **Gloss-based influence operators** (GlossInfluenceEngine + GlossBasedInfluence)
+- [x] **Context generation styles** (descriptive, prescriptive, concise, narrative)
+- [x] **Trait-specific gloss operators** (TraitGlossInfluence + factory functions)
+- [x] **Gloss influence tests** (37 unit tests)
 - [ ] **Strength modifiers** ("very lazy", "slightly ambitious")
 - [ ] **Conflict detection/resolution** (reinforcement/tension handling)
 - [ ] Additional trait operators (openness, agreeableness, neuroticism)
@@ -1118,11 +1152,22 @@ class CustomInfluence(InfluenceOperator):
 - [ ] Personality drift quantification
 - [ ] Publication preparation
 
+## ✅ Testing
+- **Unit tests**: 276+ tests, 98% coverage
+  - Resources: 91 tests
+  - Personality: 56 tests  
+  - Influence (gloss): 37 tests
+  - Memory: 31 tests
+  - Other: 61 tests
+
 ## 📚 Project Structure
 ```
 rnb4llm/
 ├── src/
 │   └── rnb/
+│       ├── console.py             # Console class + say_* convenience functions
+│       ├── logging.py             # configure_logging, RoleFormatter, role_logger
+│       │
 │       ├── resources/                  # RnB WordNet/Scheme Resources
 │       │   ├── models.py               # TaxonomyPosition, GlossEntry, etc.
 │       │   ├── adjective_resolver.py   # Adjective → taxonomy mapping
@@ -1144,10 +1189,12 @@ rnb4llm/
 │       │
 │       ├── influence/             # RnB Behavioral Engine
 │       |   ├── context.py         # InfluenceContext (Model M wrapper)
-│       |   ├── base.py            # InfluenceOperator base classes
+│       |   ├── base.py            # InfluenceOperator, CompositeInfluenceOperator
 │       |   ├── registry.py        # OperatorRegistry (activation matrix)
+│       |   ├── gloss_engine.py    # GlossInfluenceEngine (scheme→gloss→context)
+│       |   ├── gloss_operator.py  # GlossBasedInfluence, TraitGlossInfluence
 │       |   │
-│       |   ├── trait_based/       # FFM/NEO PI-R operators
+│       |   ├── trait_based/       # Hardcoded FFM operators (legacy/comparison)
 │       |   │   ├── conscientiousness.py
 │       |   │   └── extraversion.py
 │       |   │
@@ -1193,6 +1240,7 @@ rnb4llm/
 ├── examples/
 │   ├── demo_resources.py           # Resources module demonstration
 │   ├── demo_personality.py         # Personality module demonstration
+│   ├── demo_gloss_influence.py     # Gloss-based influence demonstration
 │   ├── complete_rnb_agent.py       # Multi-turn conversation with personality
 │   ├── memory_aware_agent.py       # Full Model M (M.A + M.U + M.S + M.T)
 │   └── llm_basic_usage.py          # Simple LLM client examples
