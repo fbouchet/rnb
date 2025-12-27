@@ -67,7 +67,13 @@ from .personality_resolver import (
     PersonalitySpecification,
     ResolvedAdjective,
 )
-from .phrase_parser import ModifiedAdjective, PhraseParser
+from .phrase_parser import (
+    NegationInfo,
+    NegationType,
+    ParsedPhrase,
+    PhraseParser,
+    parse_adjective_phrases,
+)
 from .scheme_registry import SchemeRegistry
 
 __all__ = [
@@ -94,5 +100,8 @@ __all__ = [
     "ModifierCategory",
     # Phrase parser
     "PhraseParser",
-    "ModifiedAdjective",
+    "ParsedPhrase",
+    "NegationInfo",
+    "NegationType",
+    "parse_adjective_phrases",
 ]

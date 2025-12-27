@@ -278,6 +278,9 @@ from rnb.influence import (
 factory = PersonalityStateFactory.from_default_resources()
 state = factory.from_adjectives("agent", ["imaginative", "organized"])
 
+# Available archetypes: helpful_assistant, creative_thinker,
+# detail_oriented, warm_social, calm_analytical, etc.
+
 # Create gloss-based operator
 op = GlossBasedInfluence.from_default_resources(
     threshold=0.3,
@@ -334,7 +337,104 @@ print(response)
 # Response will reflect personality: organized structure, thorough detail
 ```
 
+## 🎚️ Strength Modifiers and Negation
+
+The framework supports nuanced personality descriptions through **intensity modifiers** 
+(e.g., "very lazy", "slightly ambitious") and **negation** (e.g., "not creative", 
+"never confident"), enabling more expressive agent personality specifications.
+
+### Intensity Modifiers
+
+Intensity modifiers use the **SO-CAL lexicon** (Semantic Orientation Calculator) 
+from Taboada et al. (2011), providing empirically-validated intensity values for 
+~200 modifier words.
+
+**Why SO-CAL over VADER?**
+
+| Resource | Entries | Granularity | Validation |
+|----------|---------|-------------|------------|
+| **SO-CAL** | ~200 | Percentage-based | MTurk human annotators |
+| VADER | ~40 | Uniform boost (~0.293) | Human ratings |
+| SentiStrength | ~30 | Discrete levels (±1, ±2) | Training optimization |
+
+SO-CAL was selected because:
+1. **Granular differentiation**: "extremely" (+40%) vs "very" (+20%) vs "quite" (+10%)
+2. **Empirical validation**: Values derived from Mechanical Turk studies
+3. **Multiplicative semantics**: Natural intensity scaling that compounds correctly
+
+VADER was rejected because it applies nearly identical boosts to all intensifiers, 
+losing the semantic distinction between "slightly" and "extremely".
+
+**Formula**: `modified_intensity = base_intensity × (1 + modifier_value)`
+
+```python
+# Examples:
+"very lazy"       → 0.7 × 1.2 = 0.84   # +20% amplification
+"slightly lazy"   → 0.7 × 0.5 = 0.35   # -50% reduction  
+"extremely lazy"  → 0.7 × 1.4 = 0.98   # +40% amplification
+```
+
+### Negation Handling
+
+Negation uses **SO-CAL shift semantics** rather than polarity flipping, 
+based on empirical evidence from Taboada et al. (2011, Section 2.4).
+
+**Why shift instead of flip?**
+
+The naive approach flips polarity: "not excellent" → "terrible". But pragmatically, 
+"not excellent" means "okay", not "terrible".
+
+SO-CAL's Mechanical Turk validation showed:
+- **Shift model**: 45.2% annotator agreement
+- **Flip model**: 33.4% annotator agreement
+
+**Shift semantics**: Instead of inverting, we shift toward the opposite pole by 
+0.4 (proportional to SO-CAL's shift=4 on [-5,+5], adapted to our [-1,+1] scale).
+
+```python
+# Shift examples:
+"not excellent" (+0.9) → +0.9 - 0.4 = +0.5   # Still positive, just less so
+"not terrible"  (-0.9) → -0.9 + 0.4 = -0.5   # Still negative, just less so
+```
+
+Near-negators apply stronger shifts:
+| Negator | Shift |
+|---------|-------|
+| `not` | 0.4 |
+| `never` | 0.5 |
+| `hardly`, `barely` | 0.6 |
+
+### Usage
+
+```python
+from rnb.resources import PhraseParser
+
+parser = PhraseParser.from_default_resources()
+
+# Parse modified phrases
+result = parser.parse("not very lazy")
+print(result.adjective)      # "lazy"
+print(result.modifier)       # "very"
+print(result.is_negated)     # True
+
+# Compute final intensity
+base_intensity = 0.7         # From adjective weight
+polarity = -1                # "lazy" maps to negative pole
+final = result.compute_intensity(base_intensity, polarity)
+# Step 1: 0.7 × 1.2 = 0.84 (modifier)
+# Step 2: 0.84 × -1 = -0.84 (polarity)
+# Step 3: -0.84 + 0.4 = -0.44 (negation shift)
+print(final)  # -0.44
+
 ## 🧪 Testing
+
+### Statistics
+- **Unit tests**: 276+ tests, 98% coverage
+  - Resources: 91 tests
+  - Personality: 56 tests  
+  - Influence (gloss): 37 tests
+  - Memory: 31 tests
+  - Other: 61 tests
 
 ### Unit Tests
 
@@ -345,6 +445,10 @@ poetry run pytest tests/unit/ -v
 
 # Resources module (49 tests)
 poetry run pytest tests/unit/resources/ -v
+
+# Phrase parser with negation (35+ tests)
+poetry run pytest tests/unit/test_phrase_parser.py -v
+poetry run pytest tests/unit/test_spacy_parser.py -v
 
 # Personality module (42 tests)
 poetry run pytest tests/unit/personality/ -v
@@ -425,7 +529,7 @@ poetry run pytest tests/integration/test_memory_integration.py -v -s
 - **LLM client**: 93% coverage (14 tests)
 - **Memory system**: 100% coverage (31 tests)
 - **Integration tests**: 13 end-to-end tests (8 personality/operator + 5 memory)
-- **Overall**: ~98% coverage across 320+ tests
+- **Overall:** ~98% coverage across 350+ tests
 
 ## 📊 Operator Activation Matrix
 
@@ -1135,7 +1239,7 @@ class CustomInfluence(InfluenceOperator):
 - [x] **Context generation styles** (descriptive, prescriptive, concise, narrative)
 - [x] **Trait-specific gloss operators** (TraitGlossInfluence + factory functions)
 - [x] **Gloss influence tests** (37 unit tests)
-- [ ] **Strength modifiers** ("very lazy", "slightly ambitious")
+- [X] **Strength modifiers** (SO-CAL intensifiers + negation with shift semantics)
 - [ ] **Conflict detection/resolution** (reinforcement/tension handling)
 - [ ] Additional trait operators (openness, agreeableness, neuroticism)
 - [ ] Composite operators (convenience combinations)
@@ -1152,13 +1256,7 @@ class CustomInfluence(InfluenceOperator):
 - [ ] Personality drift quantification
 - [ ] Publication preparation
 
-## ✅ Testing
-- **Unit tests**: 276+ tests, 98% coverage
-  - Resources: 91 tests
-  - Personality: 56 tests  
-  - Influence (gloss): 37 tests
-  - Memory: 31 tests
-  - Other: 61 tests
+
 
 ## 📚 Project Structure
 ```
@@ -1173,10 +1271,13 @@ rnb4llm/
 │       │   ├── adjective_resolver.py   # Adjective → taxonomy mapping
 │       │   ├── scheme_registry.py      # Scheme lookup and gloss access
 │       │   ├── personality_resolver.py # High-level resolution pipeline
+│       │   ├── modifier_lexicon.py     # SO-CAL intensity modifiers
+│       │   ├── phrase_parser.py        # SpaCy-based phrase parsing + negation
 │       │   └── data/
 │       │       ├── neopiradj.yaml  # 876 personality adjectives
 │       │       ├── schemes.yaml    # 70 behavioral schemes
-│       │       └── archetypes.yaml # Predefined personality profiles
+│       │       ├── archetypes.yaml # Predefined personality profiles
+│       │       └── modifiers.yaml  # SO-CAL intensifier lexicon (~200 entries)
 │       │
 │       ├── personality/           # RnB Model M.A (Scheme-Level)
 │       │   ├── state.py           # PersonalityState (scheme storage)
@@ -1293,6 +1394,11 @@ rnb4llm/
 - Costa, P. T., & McCrae, R. R. (1992). *NEO PI-R: Revised NEO Personality Inventory*. Psychological Assessment Resources.
 - Gosling, S. D., Rentfrow, P. J., & Swann, W. B. (2003). *A very brief measure of the Big Five personality domains*. Journal of Research in Personality, 37(6), 504-528.
 
+### NLP & Sentiment Analysis
+- SpaCy: https://spacy.io/ (POS tagging, dependency parsing)
+- SO-CAL: https://github.com/sfu-discourse-lab/SO-CAL (intensity modifiers)
+- Taboada et al. (2011): Lexicon-Based Methods for Sentiment Analysis, Computational Linguistics 37(2)
+
 ### LLM Agents & Personality
 - Character-LLM: *Controllable character generation via fine-tuning*
 - Recent work on LLM personality simulation and consistency
@@ -1313,6 +1419,9 @@ This is an academic research project led by François Bouchet (LIP6, Sorbonne Un
 git clone <repository-url>
 cd rnb4llm
 poetry install
+
+# Download SpaCy model (required for phrase parsing)
+python -m spacy download en_core_web_sm
 
 # Install pre-commit hooks
 poetry run pre-commit install
