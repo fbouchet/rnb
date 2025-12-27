@@ -10,19 +10,19 @@ The module implements Step 1 of the RnB pipeline:
 
 Usage:
     from rnb.resources import PersonalityResolver
-    
+
     # Load from default locations
     resolver = PersonalityResolver.from_default_resources()
-    
+
     # Or specify paths explicitly
     resolver = PersonalityResolver.from_yaml(
         neopiradj_path="path/to/neopiradj.yaml",
         schemes_path="path/to/schemes.yaml"
     )
-    
+
     # Resolve adjectives to personality specification
     spec = resolver.resolve(["romantic", "organized", "shy"])
-    
+
     # Inspect results
     print(spec.summary())
     for r in spec.resolved:
@@ -38,39 +38,44 @@ Resource Statistics:
     - 5 FFM traits (OCEAN)
 
 References:
-    - Bouchet & Sansonnet (2010), "Implementing WordNet Personality 
+    - Bouchet & Sansonnet (2010), "Implementing WordNet Personality
       Adjectives as Influences on Rational Agents", IJCISM
-    - Bouchet & Sansonnet (2013), "Influence of FFM/NEO PI-R personality 
+    - Bouchet & Sansonnet (2013), "Influence of FFM/NEO PI-R personality
       traits on the rational process of autonomous agents"
 """
 
+from .adjective_resolver import AdjectiveResolver
 from .models import (
-    # Enums
-    TraitName,
-    # Core data structures
-    TaxonomyPosition,
-    GlossEntry,
     AdjectiveEntry,
     AdjectiveResolution,
-    SchemeInfo,
+    GlossEntry,
     PoleInfo,
+    SchemeInfo,
+    # Core data structures
+    TaxonomyPosition,
+    # Enums
+    TraitName,
 )
-
-from .adjective_resolver import AdjectiveResolver
-from .scheme_registry import SchemeRegistry
+from .modifier_lexicon import (
+    ModifierCategory,
+    ModifierEntry,
+    ModifierLexicon,
+    ModifierType,
+)
 from .personality_resolver import (
     PersonalityResolver,
     PersonalitySpecification,
     ResolvedAdjective,
 )
-
+from .phrase_parser import ModifiedAdjective, PhraseParser
+from .scheme_registry import SchemeRegistry
 
 __all__ = [
     # Enums
     "TraitName",
     # Data models
     "TaxonomyPosition",
-    "GlossEntry", 
+    "GlossEntry",
     "AdjectiveEntry",
     "AdjectiveResolution",
     "SchemeInfo",
@@ -82,4 +87,12 @@ __all__ = [
     "AdjectiveResolver",
     "SchemeRegistry",
     "PersonalityResolver",
+    # Modifier lexicon
+    "ModifierLexicon",
+    "ModifierEntry",
+    "ModifierType",
+    "ModifierCategory",
+    # Phrase parser
+    "PhraseParser",
+    "ModifiedAdjective",
 ]
