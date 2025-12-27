@@ -1,6 +1,15 @@
 """
 Extraversion Trait Operators - RnB Behavioral Schemes
 
+⚠️ DISCLAIMER: These hardcoded operators are provided as examples of manual
+customization. They are NOT the recommended RnB approach. The gloss-based
+GlossInfluenceEngine should be preferred as it automatically generates
+behavioral expressions from the WordNet-grounded scheme definitions,
+maintaining fidelity to the original RnB framework philosophy.
+
+Use these only when you need specific, manually-controlled behavioral
+modifications that the gloss system doesn't provide.
+
 Extraversion in FFM/NEO PI-R:
 "The tendency toward social engagement, assertiveness, and positive emotionality.
 High extraversion is associated with enthusiasm, expressiveness, and social energy."

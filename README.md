@@ -1240,21 +1240,21 @@ class CustomInfluence(InfluenceOperator):
 - [x] **Trait-specific gloss operators** (TraitGlossInfluence + factory functions)
 - [x] **Gloss influence tests** (37 unit tests)
 - [X] **Strength modifiers** (SO-CAL intensifiers + negation with shift semantics)
-- [ ] **Conflict detection/resolution** (reinforcement/tension handling)
-- [ ] Additional trait operators (openness, agreeableness, neuroticism)
-- [ ] Composite operators (convenience combinations)
-- [ ] Update rules engine (automated personality evolution)
+- [ ] **Conflict detection/resolution** (reinforcement/tension handling in operators outputs)
+- [x] ~~Additional trait operators~~ (superseded by gloss-based system)
+- [x] ~~Composite operators~~ (covered by archetypes)
+- [ ] Mood/affect update rules (decay, event-driven changes)
 - [ ] Personality testing framework (TIPI, BFI-2)
 - [ ] Advanced examples (tutoring, customer service, collaborative agents)
-- [ ] Consistency metrics and validation
 
 ### 📋 Phase 5: Research Publication (PLANNED)
+- [ ] Personality testing framework (TIPI, BFI-2 self-report validation)
+- [ ] Consistency metrics (drift, variance, cross-situation stability)
 - [ ] Empirical validation experiments
-- [ ] Cross-LLM consistency testing (GPT-4, Claude, Llama)
 - [ ] DailyDialog dataset evaluation
-- [ ] Statistical analysis of personality stability
-- [ ] Personality drift quantification
-- [ ] Publication preparation
+- [ ] Cross-LLM consistency testing (GPT-4, Claude, Llama)
+- [ ] Statistical analysis
+
 
 
 

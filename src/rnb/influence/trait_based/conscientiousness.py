@@ -1,5 +1,14 @@
 """
-Conscientiousness Trait Operators - RnB Behavioral Schemes
+Conscientiousness Trait Operators - RnB Behavioral Schemes (Ad-Hoc)
+
+⚠️ DISCLAIMER: These hardcoded operators are provided as examples of manual
+customization. They are NOT the recommended RnB approach. The gloss-based
+GlossInfluenceEngine should be preferred as it automatically generates
+behavioral expressions from the WordNet-grounded scheme definitions,
+maintaining fidelity to the original RnB framework philosophy.
+
+Use these only when you need specific, manually-controlled behavioral
+modifications that the gloss system doesn't provide.
 
 Conscientiousness in FFM/NEO PI-R:
 "The tendency to be organized, responsible, and hardworking. High conscientiousness
