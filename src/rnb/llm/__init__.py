@@ -11,10 +11,10 @@ Uses Instructor for structured outputs and consistent error handling.
 
 from .client import LLMClient, ModelProvider
 from .exceptions import (
+    ContextLengthExceededError,
     LLMException,
     ModelNotAvailableError,
-    ContextLengthExceededError,
-    RateLimitError
+    RateLimitError,
 )
 
 __all__ = [

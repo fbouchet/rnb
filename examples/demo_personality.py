@@ -6,7 +6,7 @@ Run from project root:
     PYTHONPATH=src python examples/demo_personality.py
 """
 
-from rnb.console import rule, sep, blank, say_agent, say_model, say_system
+from rnb.console import blank, rule, say_agent, say_model, say_system
 from rnb.logging import configure_logging
 from rnb.personality import (
     ARCHETYPES,
@@ -16,6 +16,7 @@ from rnb.personality import (
     PersonalityStateFactory,
     Trait,
 )
+
 
 def main() -> None:
     # Configure demo logging once.
@@ -33,7 +34,9 @@ def main() -> None:
     # ===== Create from adjectives =====
     blank(1)
     say_system("2. Creating state from adjectives: ['romantic', 'organized', 'shy']")
-    state = factory.from_adjectives("agent-adjectives", ["romantic", "organized", "shy"])
+    state = factory.from_adjectives(
+        "agent-adjectives", ["romantic", "organized", "shy"]
+    )
 
     blank(1)
     say_system("   Result:")
@@ -46,9 +49,7 @@ def main() -> None:
         value = state.get_trait(trait)
         if value != 0:
             bar = (
-                "+" * int(abs(value) * 10)
-                if value > 0
-                else "-" * int(abs(value) * 10)
+                "+" * int(abs(value) * 10) if value > 0 else "-" * int(abs(value) * 10)
             )
             say_model(f"     {trait.value:20} {value:+.2f} [{bar}]")
 
@@ -113,7 +114,9 @@ def main() -> None:
     say_system("   Archetype traits:")
     for trait, expected in ARCHETYPES["creative_thinker"]["traits"].items():
         actual = state4.get_trait(trait)
-        say_model(f"     {trait.value:20} expected={expected:+.2f}, actual={actual:+.2f}")
+        say_model(
+            f"     {trait.value:20} expected={expected:+.2f}, actual={actual:+.2f}"
+        )
 
     # ===== Mood and affect operations =====
     blank(1)
@@ -133,7 +136,9 @@ def main() -> None:
     )
 
     state5.set_affect(AffectDimension.TRUST, 0.6)
-    say_system(f"   Trust in current user: {state5.get_affect(AffectDimension.TRUST):.2f}")
+    say_system(
+        f"   Trust in current user: {state5.get_affect(AffectDimension.TRUST):.2f}"
+    )
 
     # ===== Serialization =====
     blank(1)

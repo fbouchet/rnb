@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 from .logging import role_logger
 
@@ -24,7 +24,7 @@ class Console:
     """
 
     namespace: str = "rnb"
-    agent_id: Optional[str] = None
+    agent_id: str | None = None
 
     def _log(self, role: str):
         extra: dict[str, Any] = {}
@@ -53,7 +53,7 @@ class Console:
 
     def error(self, message: str, **extra: Any) -> None:
         self._log("error").error(message, extra=extra)
-        
+
     # --- formatting helpers (factorized headers/separators) ---
     def blank(self, n: int = 1) -> None:
         """Emit N blank lines via system channel."""
@@ -90,27 +90,37 @@ class Console:
         else:
             self.system(char * width)
 
+
 # -------------------------------------------------------------------
 # Convenience functions (for scripts that don't want to instantiate Console)
 # -------------------------------------------------------------------
+
 
 def _c(namespace: str = "rnb", agent_id: str | None = None) -> Console:
     return Console(namespace=namespace, agent_id=agent_id)
 
 
-def say_user(message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any) -> None:
+def say_user(
+    message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any
+) -> None:
     _c(namespace, agent_id).user(message, **extra)
 
 
-def say_agent(message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any) -> None:
+def say_agent(
+    message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any
+) -> None:
     _c(namespace, agent_id).agent(message, **extra)
 
 
-def say_model(message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any) -> None:
+def say_model(
+    message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any
+) -> None:
     _c(namespace, agent_id).model(message, **extra)
 
 
-def say_system(message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any) -> None:
+def say_system(
+    message: str, *, agent_id: str | None = None, namespace: str = "rnb", **extra: Any
+) -> None:
     _c(namespace, agent_id).system(message, **extra)
 
 
@@ -118,7 +128,13 @@ def blank(n: int = 1, *, agent_id: str | None = None, namespace: str = "rnb") ->
     _c(namespace, agent_id).blank(n)
 
 
-def sep(*, char: str = "-", width: int = 70, agent_id: str | None = None, namespace: str = "rnb") -> None:
+def sep(
+    *,
+    char: str = "-",
+    width: int = 70,
+    agent_id: str | None = None,
+    namespace: str = "rnb",
+) -> None:
     _c(namespace, agent_id).sep(char=char, width=width)
 
 

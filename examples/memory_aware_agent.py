@@ -15,22 +15,19 @@ Usage:
     poetry run python examples/memory_aware_agent.py
 """
 
-from rnb.personality.backend import RedisBackend
-from rnb.personality.store import PersonalityStateStore
-from rnb.personality.manager import AgentManager
-from rnb.personality.state import MoodDimension, AffectDimension
-from rnb.personality.taxonomy import Trait
+from rnb.console import blank, rule, say_agent, say_system, say_user, sep
+from rnb.influence.affect_based import CooperationVerbosityInfluence
 from rnb.influence.context import InfluenceContext
 from rnb.influence.registry import OperatorRegistry
-from rnb.influence.trait_based import StructureInfluence, DetailOrientedInfluence
-from rnb.influence.affect_based import CooperationVerbosityInfluence
-from rnb.memory import MemoryStore, MemoryType
+from rnb.influence.trait_based import DetailOrientedInfluence, StructureInfluence
 from rnb.llm import LLMClient, ModelProvider
-
-
-
 from rnb.logging import configure_logging
-from rnb.console import rule, sep, blank, say_user, say_agent, say_system
+from rnb.memory import MemoryStore, MemoryType
+from rnb.personality.backend import RedisBackend
+from rnb.personality.manager import AgentManager
+from rnb.personality.state import AffectDimension, MoodDimension
+from rnb.personality.store import PersonalityStateStore
+from rnb.personality.taxonomy import Trait
 
 
 def main() -> None:
@@ -144,7 +141,10 @@ def main() -> None:
         {
             "turn": 1,
             "user_query": "Can you explain binary search?",
-            "task_update": {"current_step": "show_example", "steps_completed": "explain_concept"},
+            "task_update": {
+                "current_step": "show_example",
+                "steps_completed": "explain_concept",
+            },
         },
         {
             "turn": 2,
@@ -223,9 +223,7 @@ def main() -> None:
                 steps_done_text = steps_done
             else:
                 steps_done_text = ", ".join(steps_done)
-            task_context = (
-                f"Current task: {task_info['content']}\nSteps completed: {steps_done_text}"
-            )
+            task_context = f"Current task: {task_info['content']}\nSteps completed: {steps_done_text}"
 
         memory_augmented_query = f"""{user_query}
 
@@ -279,14 +277,24 @@ Respond according to user preferences and task progress."""
     rule("Memory System Summary")
 
     say_system("Final Memory Counts:")
-    say_system(f"  M.U (User Model):    {memory.count_memories(agent_id, MemoryType.USER)} memories")
-    say_system(f"  M.S (Session Model): {memory.count_memories(agent_id, MemoryType.SESSION)} memories")
-    say_system(f"  M.T (Task Model):    {memory.count_memories(agent_id, MemoryType.TASK)} memories")
+    say_system(
+        f"  M.U (User Model):    {memory.count_memories(agent_id, MemoryType.USER)} memories"
+    )
+    say_system(
+        f"  M.S (Session Model): {memory.count_memories(agent_id, MemoryType.SESSION)} memories"
+    )
+    say_system(
+        f"  M.T (Task Model):    {memory.count_memories(agent_id, MemoryType.TASK)} memories"
+    )
 
     blank(1)
     say_system("Key Observations:")
-    say_system("1. Personality (M.A) remained stable: High conscientiousness throughout")
-    say_system("2. User model (M.U) captured: Python preference, expertise, learning style")
+    say_system(
+        "1. Personality (M.A) remained stable: High conscientiousness throughout"
+    )
+    say_system(
+        "2. User model (M.U) captured: Python preference, expertise, learning style"
+    )
     say_system("3. Session history (M.S) tracked: Multi-turn conversation context")
     say_system("4. Task tracking (M.T) monitored: Progress through learning objectives")
     say_system("5. Memory + Personality: Agent provided Python examples (memory)")

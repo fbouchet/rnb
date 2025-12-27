@@ -13,25 +13,23 @@ Key components:
 Reference: Bouchet & Sansonnet (2009-2013), RnB Framework papers
 """
 
+from .base import CompositeInfluenceOperator, InfluenceOperator
 from .context import InfluenceContext
-from .base import InfluenceOperator, CompositeInfluenceOperator
-from .registry import OperatorRegistry
-
 from .gloss_engine import (
-    GlossInfluenceEngine,
-    ContextStyle,
     ActiveGloss,
+    ContextStyle,
+    GlossInfluenceEngine,
 )
-
 from .gloss_operator import (
     GlossBasedInfluence,
     TraitGlossInfluence,
-    create_openness_gloss_operator,
+    create_agreeableness_gloss_operator,
     create_conscientiousness_gloss_operator,
     create_extraversion_gloss_operator,
-    create_agreeableness_gloss_operator,
     create_neuroticism_gloss_operator,
+    create_openness_gloss_operator,
 )
+from .registry import OperatorRegistry
 
 __all__ = [
     # Base

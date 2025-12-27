@@ -23,13 +23,7 @@ Reference: Bouchet & Sansonnet (2009-2013), RnB Model M
 
 from .backend import ChromaBackend
 from .store import MemoryStore
-from .types import (
-    MemoryType,
-    Memory,
-    UserMemory,
-    SessionMemory,
-    TaskMemory
-)
+from .types import Memory, MemoryType, SessionMemory, TaskMemory, UserMemory
 
 __all__ = [
     "ChromaBackend",

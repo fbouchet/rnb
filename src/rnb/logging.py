@@ -3,7 +3,8 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import Any, Mapping, Optional
+from collections.abc import Mapping
+from typing import Any
 
 ROLE = str
 
@@ -200,6 +201,6 @@ def configure_logging(
     logging.getLogger("anthropic").setLevel(logging.WARNING)
 
 
-def get_logger(name: Optional[str] = None) -> logging.Logger:
+def get_logger(name: str | None = None) -> logging.Logger:
     """Convenience helper. Prefer logging.getLogger(__name__) in modules."""
     return logging.getLogger(name or "rnb")

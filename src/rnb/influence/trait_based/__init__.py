@@ -6,7 +6,7 @@ of personality, also known as the Big Five or NEO PI-R.
 
 From RnB papers (Bouchet & Sansonnet):
 "Personality traits are stable dispositions that consistently influence behavior.
-The FFM provides a comprehensive taxonomy: Openness, Conscientiousness, 
+The FFM provides a comprehensive taxonomy: Openness, Conscientiousness,
 Extraversion, Agreeableness, Neuroticism. Each trait decomposes into 6 facets
 (NEO PI-R), and each facet maps to specific behavioral schemes."
 
@@ -20,20 +20,20 @@ Reference: Costa & McCrae (1992), NEO PI-R; Bouchet & Sansonnet (2013)
 """
 
 from .conscientiousness import (
-    StructureInfluence,
     DetailOrientedInfluence,
-    PrecisionInfluence
+    PrecisionInfluence,
+    StructureInfluence,
 )
 from .extraversion import (
     EnthusiasmInfluence,
     ExpressionInfluence,
-    SocialEnergyInfluence
+    SocialEnergyInfluence,
 )
 
 __all__ = [
     # Conscientiousness operators
     "StructureInfluence",
-    "DetailOrientedInfluence", 
+    "DetailOrientedInfluence",
     "PrecisionInfluence",
     # Extraversion operators
     "EnthusiasmInfluence",

@@ -1,21 +1,17 @@
 """Personality state management for RnB agents"""
 
-from .exceptions import (
-    RnBException,
-    AgentNotFoundError,
-    AgentAlreadyExistsError,
-    InvalidValueError,
-    StorageConnectionError
-)
-from .state import (
-    PersonalityState,
-    MoodDimension,
-    AffectDimension
-)
-from .taxonomy import Trait
 from .backend import RedisBackend
-from .store import PersonalityStateStore
+from .exceptions import (
+    AgentAlreadyExistsError,
+    AgentNotFoundError,
+    InvalidValueError,
+    RnBException,
+    StorageConnectionError,
+)
 from .manager import AgentManager
+from .state import AffectDimension, MoodDimension, PersonalityState
+from .store import PersonalityStateStore
+from .taxonomy import Trait
 
 __all__ = [
     # Exceptions

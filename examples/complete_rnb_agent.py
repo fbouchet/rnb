@@ -18,35 +18,30 @@ Usage:
     poetry run python examples/complete_rnb_agent.py
 """
 
-from rnb.personality.backend import RedisBackend
-from rnb.personality.store import PersonalityStateStore
-from rnb.personality.manager import AgentManager
-from rnb.personality.state import (
-    PersonalityState,
-    MoodDimension,
-    AffectDimension
-)
-from rnb.personality.taxonomy import Trait
-from rnb.influence.context import InfluenceContext
-from rnb.influence.registry import OperatorRegistry
-from rnb.influence.trait_based import (
-    StructureInfluence,
-    DetailOrientedInfluence,
-    EnthusiasmInfluence
-)
+from rnb.console import blank, rule, say_agent, say_model, say_system, say_user, sep
 from rnb.influence.affect_based import (
+    CooperationHelpfulnessInfluence,
     CooperationVerbosityInfluence,
-    CooperationHelpfulnessInfluence
 )
+from rnb.influence.context import InfluenceContext
 from rnb.influence.mood_based import (
     EnergyLengthInfluence,
     HappinessToneInfluence,
-    SatisfactionPatienceInfluence
+    SatisfactionPatienceInfluence,
+)
+from rnb.influence.registry import OperatorRegistry
+from rnb.influence.trait_based import (
+    DetailOrientedInfluence,
+    EnthusiasmInfluence,
+    StructureInfluence,
 )
 from rnb.llm import LLMClient, ModelProvider
-
 from rnb.logging import configure_logging
-from rnb.console import rule, sep, blank, say_user, say_agent, say_model, say_system
+from rnb.personality.backend import RedisBackend
+from rnb.personality.manager import AgentManager
+from rnb.personality.state import AffectDimension, MoodDimension, PersonalityState
+from rnb.personality.store import PersonalityStateStore
+from rnb.personality.taxonomy import Trait
 
 
 def print_personality_state(state: PersonalityState, show_header: bool = True):
@@ -82,45 +77,40 @@ def print_state_delta(label: str, initial: float, current: float):
 def apply_interaction_fatigue(store: PersonalityStateStore, agent_id: str):
     """
     Update rule: Each interaction slightly decreases energy (fatigue).
-    
+
     RnB behavioral dynamics: Extended interactions cause energy decay.
     """
-    store.update_mood(agent_id, {
-        MoodDimension.ENERGY: -0.15  # Gradual energy decrease
-    })
+    store.update_mood(
+        agent_id, {MoodDimension.ENERGY: -0.15}  # Gradual energy decrease
+    )
 
 
 def apply_positive_feedback(store: PersonalityStateStore, agent_id: str):
     """
     Update rule: Positive feedback increases happiness and cooperation.
-    
+
     RnB behavioral dynamics: Positive reinforcement affects mood and relationship.
     """
-    store.update_mood(agent_id, {
-        MoodDimension.HAPPINESS: 0.2,
-        MoodDimension.SATISFACTION: 0.15
-    })
-    
-    store.update_affect(agent_id, {
-        AffectDimension.COOPERATION: 0.1,
-        AffectDimension.TRUST: 0.05
-    })
+    store.update_mood(
+        agent_id, {MoodDimension.HAPPINESS: 0.2, MoodDimension.SATISFACTION: 0.15}
+    )
+
+    store.update_affect(
+        agent_id, {AffectDimension.COOPERATION: 0.1, AffectDimension.TRUST: 0.05}
+    )
 
 
 def apply_criticism(store: PersonalityStateStore, agent_id: str):
     """
     Update rule: Criticism decreases happiness and cooperation.
-    
+
     RnB behavioral dynamics: Negative feedback affects emotional state and relationship.
     """
-    store.update_mood(agent_id, {
-        MoodDimension.HAPPINESS: -0.25,
-        MoodDimension.SATISFACTION: -0.2
-    })
-    
-    store.update_affect(agent_id, {
-        AffectDimension.COOPERATION: -0.15
-    })
+    store.update_mood(
+        agent_id, {MoodDimension.HAPPINESS: -0.25, MoodDimension.SATISFACTION: -0.2}
+    )
+
+    store.update_affect(agent_id, {AffectDimension.COOPERATION: -0.15})
 
 
 def main():
@@ -224,14 +214,26 @@ def main():
     rule("Multi-Turn Conversation")
 
     conversation = [
-        {"turn": 1, "user": "Can you explain what recursion is in programming?", "event": None},
+        {
+            "turn": 1,
+            "user": "Can you explain what recursion is in programming?",
+            "event": None,
+        },
         {
             "turn": 2,
             "user": "That's really helpful, thank you! Can you give me an example?",
             "event": "positive_feedback",
         },
-        {"turn": 3, "user": "Hmm, I'm still confused. Can you explain it differently?", "event": "criticism"},
-        {"turn": 4, "user": "Ah! Now I understand. Thanks for being patient!", "event": "positive_feedback"},
+        {
+            "turn": 3,
+            "user": "Hmm, I'm still confused. Can you explain it differently?",
+            "event": "criticism",
+        },
+        {
+            "turn": 4,
+            "user": "Ah! Now I understand. Thanks for being patient!",
+            "event": "positive_feedback",
+        },
     ]
 
     previous_state = initial_state.copy()
@@ -249,7 +251,7 @@ def main():
 
         say_user(user_message)
         blank(1)
-        
+
         say_system(f"Active operators: {len(active_ops)}")
         for op in active_ops:
             say_system(f"  - {op.name} (priority: {op.get_activation_priority()})")
@@ -294,17 +296,31 @@ def main():
         updated_state = store.get_state(agent_id)
         blank(1)
         say_system("State Changes (this turn):")
-        print_state_delta("Energy", previous_state["energy"], updated_state.moods[MoodDimension.ENERGY])
         print_state_delta(
-            "Happiness", previous_state["happiness"], updated_state.moods[MoodDimension.HAPPINESS]
+            "Energy",
+            previous_state["energy"],
+            updated_state.moods[MoodDimension.ENERGY],
         )
         print_state_delta(
-            "Satisfaction", previous_state["satisfaction"], updated_state.moods[MoodDimension.SATISFACTION]
+            "Happiness",
+            previous_state["happiness"],
+            updated_state.moods[MoodDimension.HAPPINESS],
         )
         print_state_delta(
-            "Cooperation", previous_state["cooperation"], updated_state.affects[AffectDimension.COOPERATION]
+            "Satisfaction",
+            previous_state["satisfaction"],
+            updated_state.moods[MoodDimension.SATISFACTION],
         )
-        print_state_delta("Trust", previous_state["trust"], updated_state.affects[AffectDimension.TRUST])
+        print_state_delta(
+            "Cooperation",
+            previous_state["cooperation"],
+            updated_state.affects[AffectDimension.COOPERATION],
+        )
+        print_state_delta(
+            "Trust",
+            previous_state["trust"],
+            updated_state.affects[AffectDimension.TRUST],
+        )
 
         previous_state = {
             "energy": updated_state.moods[MoodDimension.ENERGY],
@@ -323,27 +339,49 @@ def main():
     rule("Personality Evolution Summary", char="=", width=70)
 
     say_system("Traits (stable - no change expected):")
-    say_system(f"  Conscientiousness: {final_state.get_trait(Trait.CONSCIENTIOUSNESS):+.2f} (unchanged)")
-    say_system(f"  Extraversion:      {final_state.get_trait(Trait.EXTRAVERSION):+.2f} (unchanged)")
-
-    blank(1)
-    say_system("Moods (dynamic - evolved during conversation):")
-    print_state_delta("Energy", initial_state["energy"], final_state.moods[MoodDimension.ENERGY])
-    print_state_delta("Happiness", initial_state["happiness"], final_state.moods[MoodDimension.HAPPINESS])
-    print_state_delta(
-        "Satisfaction", initial_state["satisfaction"], final_state.moods[MoodDimension.SATISFACTION]
+    say_system(
+        f"  Conscientiousness: {final_state.get_trait(Trait.CONSCIENTIOUSNESS):+.2f} (unchanged)"
+    )
+    say_system(
+        f"  Extraversion:      {final_state.get_trait(Trait.EXTRAVERSION):+.2f} (unchanged)"
     )
 
     blank(1)
-    say_system("Affects (relationship-specific - evolved based on interaction quality):")
-    print_state_delta("Cooperation", initial_state["cooperation"], final_state.affects[AffectDimension.COOPERATION])
-    print_state_delta("Trust", initial_state["trust"], final_state.affects[AffectDimension.TRUST])
+    say_system("Moods (dynamic - evolved during conversation):")
+    print_state_delta(
+        "Energy", initial_state["energy"], final_state.moods[MoodDimension.ENERGY]
+    )
+    print_state_delta(
+        "Happiness",
+        initial_state["happiness"],
+        final_state.moods[MoodDimension.HAPPINESS],
+    )
+    print_state_delta(
+        "Satisfaction",
+        initial_state["satisfaction"],
+        final_state.moods[MoodDimension.SATISFACTION],
+    )
+
+    blank(1)
+    say_system(
+        "Affects (relationship-specific - evolved based on interaction quality):"
+    )
+    print_state_delta(
+        "Cooperation",
+        initial_state["cooperation"],
+        final_state.affects[AffectDimension.COOPERATION],
+    )
+    print_state_delta(
+        "Trust", initial_state["trust"], final_state.affects[AffectDimension.TRUST]
+    )
 
     rule("Key Observations", char="=", width=70)
     say_system("1. Traits remained stable (as expected in RnB framework)")
     say_system("2. Energy decreased due to interaction fatigue (mood decay)")
     say_system("3. Happiness fluctuated based on feedback (mood dynamics)")
-    say_system("4. Cooperation and trust evolved based on interaction quality (affect development)")
+    say_system(
+        "4. Cooperation and trust evolved based on interaction quality (affect development)"
+    )
     say_system("5. Responses showed personality-consistent behavior throughout")
 
     # Cleanup

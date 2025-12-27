@@ -6,7 +6,7 @@ Run from project root:
     PYTHONPATH=src python examples/demo_resources.py
 """
 
-from rnb.console import rule, blank, say_agent, say_model, say_system
+from rnb.console import blank, rule, say_agent, say_model, say_system
 from rnb.logging import configure_logging
 from rnb.resources import PersonalityResolver
 
@@ -87,11 +87,14 @@ def main() -> None:
     # Suggest adjectives for a facet
     blank(1)
     say_system("6. Suggesting adjectives for Openness/Fantasy (+):")
-    suggestions = resolver.suggest_adjectives("Openness", facet="Fantasy", valence="+", limit=5)
+    suggestions = resolver.suggest_adjectives(
+        "Openness", facet="Fantasy", valence="+", limit=5
+    )
     say_agent(f"   {suggestions}")
 
     blank(1)
     rule("Demo complete!", width=60)
+
 
 if __name__ == "__main__":
     main()

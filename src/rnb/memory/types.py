@@ -4,23 +4,25 @@ Memory types for RnB Model M extensions.
 Defines structured memory objects for M.U, M.S, and M.T.
 """
 
-from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any, List
 from datetime import datetime
 from enum import Enum
+from typing import Any
+
+from pydantic import BaseModel, Field
 
 
 class MemoryType(str, Enum):
     """Memory categories in RnB Model M"""
-    USER = "user"        # M.U: User model
+
+    USER = "user"  # M.U: User model
     SESSION = "session"  # M.S: Session model
-    TASK = "task"        # M.T: Task model
+    TASK = "task"  # M.T: Task model
 
 
 class Memory(BaseModel):
     """
     Base memory structure.
-    
+
     All memories have:
     - id: Unique identifier
     - type: Memory category (user/session/task)
@@ -28,23 +30,24 @@ class Memory(BaseModel):
     - metadata: Additional structured information
     - timestamp: When memory was created
     """
+
     id: str
     type: MemoryType
     content: str
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    metadata: dict[str, Any] = Field(default_factory=dict)
     timestamp: datetime = Field(default_factory=datetime.now)
 
 
 class UserMemory(Memory):
     """
     M.U: User Model Memory
-    
+
     Stores agent's knowledge about the user:
     - Preferences (likes, dislikes, interests)
     - Observed traits (inferred personality, communication style)
     - Personal facts (background, expertise, context)
     - Interaction patterns (frequency, topics, sentiment)
-    
+
     Example:
         UserMemory(
             id="user_pref_001",
@@ -56,27 +59,28 @@ class UserMemory(Memory):
                 "observed_interactions": 5
             }
         )
-    
+
     Reference: RnB M.U - enables personalization
     """
+
     type: MemoryType = Field(default=MemoryType.USER)
-    
+
     def __init__(self, **data):
-        if 'type' not in data:
-            data['type'] = MemoryType.USER
+        if "type" not in data:
+            data["type"] = MemoryType.USER
         super().__init__(**data)
 
 
 class SessionMemory(Memory):
     """
     M.S: Session Model Memory
-    
+
     Stores conversation history and context:
     - Dialogue turns (user/agent exchanges)
     - Conversational context (topics discussed, references)
     - Session state (objectives achieved, pending questions)
     - Discourse markers (topic shifts, clarifications)
-    
+
     Example:
         SessionMemory(
             id="session_turn_003",
@@ -90,27 +94,28 @@ class SessionMemory(Memory):
                 "session_id": "conv_20250101_001"
             }
         )
-    
+
     Reference: RnB M.S - enables context-aware responses
     """
+
     type: MemoryType = Field(default=MemoryType.SESSION)
-    
+
     def __init__(self, **data):
-        if 'type' not in data:
-            data['type'] = MemoryType.SESSION
+        if "type" not in data:
+            data["type"] = MemoryType.SESSION
         super().__init__(**data)
 
 
 class TaskMemory(Memory):
     """
     M.T: Task Model Memory
-    
+
     Stores current task state and goals:
     - Task definition (objective, constraints, success criteria)
     - Progress tracking (steps completed, remaining work)
     - Sub-goals (decomposed objectives, dependencies)
     - Resources (relevant information, tools available)
-    
+
     Example:
         TaskMemory(
             id="task_goal_001",
@@ -123,12 +128,13 @@ class TaskMemory(Memory):
                 "success_criteria": ["working_implementation", "user_understanding"]
             }
         )
-    
+
     Reference: RnB M.T - enables goal-directed behavior
     """
+
     type: MemoryType = Field(default=MemoryType.TASK)
-    
+
     def __init__(self, **data):
-        if 'type' not in data:
-            data['type'] = MemoryType.TASK
+        if "type" not in data:
+            data["type"] = MemoryType.TASK
         super().__init__(**data)

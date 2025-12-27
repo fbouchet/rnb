@@ -30,17 +30,9 @@ Mood update rules (examples from RnB):
 Reference: Bouchet & Sansonnet (2009-2013), RnB Model M.A
 """
 
-from .energy import (
-    EnergyLengthInfluence,
-    EnergyInitiativeInfluence
-)
-from .happiness import (
-    HappinessToneInfluence,
-    HappinessPositivityInfluence
-)
-from .satisfaction import (
-    SatisfactionPatienceInfluence
-)
+from .energy import EnergyInitiativeInfluence, EnergyLengthInfluence
+from .happiness import HappinessPositivityInfluence, HappinessToneInfluence
+from .satisfaction import SatisfactionPatienceInfluence
 
 __all__ = [
     # Energy operators

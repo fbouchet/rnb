@@ -12,7 +12,7 @@ import os
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
-from rnb.console import rule, blank, say_agent, say_system, say_user
+from rnb.console import blank, rule, say_agent, say_system, say_user
 from rnb.llm import LLMClient, ModelProvider
 from rnb.logging import configure_logging
 

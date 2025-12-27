@@ -1,14 +1,15 @@
 import os
+
 from rnb.console import say_agent, say_model, say_system, say_user
-from rnb.logging import configure_logging
-from rnb.personality.store import PersonalityStateStore
-from rnb.personality.state import FFMTrait, MoodDimension, AffectDimension
 from rnb.influence.operators import (
     CooperationInfluence,
     ExtraversionInfluence,
     MoodInfluence,
 )
 from rnb.llm.client import LLMClient, ModelProvider
+from rnb.logging import configure_logging
+from rnb.personality.state import AffectDimension, FFMTrait, MoodDimension
+from rnb.personality.store import PersonalityStateStore
 
 
 def main() -> None:
@@ -23,7 +24,7 @@ def main() -> None:
     llm = LLMClient(
         provider=ModelProvider.OPENAI,
         model_name="gpt-4",
-        api_key=os.getenv("OPENAI_API_KEY")
+        api_key=os.getenv("OPENAI_API_KEY"),
     )
 
     # Create agent with specific personality
@@ -33,9 +34,9 @@ def main() -> None:
     store.create_agent(
         agent_id=agent_id,
         traits={
-            FFMTrait.EXTRAVERSION: 0.6,       # Moderately outgoing
+            FFMTrait.EXTRAVERSION: 0.6,  # Moderately outgoing
             FFMTrait.CONSCIENTIOUSNESS: 0.8,  # Highly organized
-            FFMTrait.AGREEABLENESS: 0.7,      # Very cooperative
+            FFMTrait.AGREEABLENESS: 0.7,  # Very cooperative
         },
     )
 
@@ -45,7 +46,7 @@ def main() -> None:
         agent_id,
         {
             AffectDimension.COOPERATION: 0.8,  # Very cooperative
-            AffectDimension.TRUST: 0.5,        # Neutral trust
+            AffectDimension.TRUST: 0.5,  # Neutral trust
         },
     )
 
@@ -54,7 +55,7 @@ def main() -> None:
     store.update_mood(
         agent_id,
         {
-            MoodDimension.ENERGY: 0.6,     # Good energy
+            MoodDimension.ENERGY: 0.6,  # Good energy
             MoodDimension.HAPPINESS: 0.4,  # Slightly positive
         },
     )

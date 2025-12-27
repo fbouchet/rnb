@@ -1,7 +1,7 @@
 """Unit tests for RedisBackend"""
 
 import pytest
-import json
+
 from rnb.personality.backend import RedisBackend
 from rnb.personality.exceptions import StorageConnectionError
 
@@ -26,18 +26,18 @@ def test_backend_connection():
 def test_backend_connection_failure():
     """Test connection failure handling"""
     with pytest.raises(StorageConnectionError) as exc_info:
-        RedisBackend(host='nonexistent', port=9999)
-    
+        RedisBackend(host="nonexistent", port=9999)
+
     assert "Redis at nonexistent:9999" in str(exc_info.value)
 
 
 def test_set_and_get(backend):
     """Test basic set/get operations"""
     test_data = {"name": "test", "value": 42}
-    
+
     backend.set("test:key", test_data)
     retrieved = backend.get("test:key")
-    
+
     assert retrieved == test_data
 
 
@@ -50,10 +50,10 @@ def test_get_nonexistent_key(backend):
 def test_delete_existing_key(backend):
     """Test deleting an existing key"""
     backend.set("test:key", {"data": "value"})
-    
+
     deleted = backend.delete("test:key")
     assert deleted is True
-    
+
     result = backend.get("test:key")
     assert result is None
 
@@ -80,9 +80,9 @@ def test_list_keys_with_pattern(backend):
     backend.set("rnb:test:1", {"id": 1})
     backend.set("rnb:test:2", {"id": 2})
     backend.set("other:key", {"id": 3})
-    
+
     keys = backend.list_keys("rnb:test:*")
-    
+
     assert len(keys) == 2
     assert "rnb:test:1" in keys
     assert "rnb:test:2" in keys
@@ -99,8 +99,8 @@ def test_flush_db(backend):
     """Test flushing database"""
     backend.set("key1", {"data": "value1"})
     backend.set("key2", {"data": "value2"})
-    
+
     backend.flush_db()
-    
+
     assert backend.get("key1") is None
     assert backend.get("key2") is None

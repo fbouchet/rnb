@@ -25,18 +25,12 @@ Reference: Bouchet & Sansonnet (2009-2013), RnB Model M.A
 """
 
 from .cooperation import (
-    CooperationVerbosityInfluence,
+    CooperationEngagementInfluence,
     CooperationHelpfulnessInfluence,
-    CooperationEngagementInfluence
+    CooperationVerbosityInfluence,
 )
-from .trust import (
-    TrustOpennessInfluence,
-    TrustVulnerabilityInfluence
-)
-from .dominance import (
-    DominanceAssertivenessInfluence,
-    DominanceDirectivenessInfluence
-)
+from .dominance import DominanceAssertivenessInfluence, DominanceDirectivenessInfluence
+from .trust import TrustOpennessInfluence, TrustVulnerabilityInfluence
 
 __all__ = [
     # Cooperation operators

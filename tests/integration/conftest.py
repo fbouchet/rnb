@@ -1,25 +1,26 @@
 """Pytest fixtures for integration tests"""
 
 import pytest
-from rnb.personality.backend import RedisBackend
-from rnb.personality.store import PersonalityStateStore
-from rnb.personality.manager import AgentManager
+
 from rnb.influence.registry import OperatorRegistry
 from rnb.llm import LLMClient, ModelProvider
+from rnb.personality.backend import RedisBackend
+from rnb.personality.manager import AgentManager
+from rnb.personality.store import PersonalityStateStore
 
 
 @pytest.fixture(scope="session")
 def llm_client():
     """
     Local LLM client for integration tests.
-    
+
     Uses llama3.2:3b via Ollama (must be running).
     Session-scoped to reuse across tests.
     """
     return LLMClient(
         provider=ModelProvider.LOCAL,
         model_name="llama3.2:3b",
-        timeout=120.0  # Longer timeout for local models
+        timeout=120.0,  # Longer timeout for local models
     )
 
 
