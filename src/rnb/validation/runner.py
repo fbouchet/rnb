@@ -25,6 +25,7 @@ Example usage:
 from __future__ import annotations
 
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -163,6 +164,47 @@ class ConsistencyTestResult:
 
 
 @dataclass
+class NRunResult:
+    """Result of N repeated conformity tests for statistical validity."""
+
+    archetype_name: str
+    instrument: str
+    n_runs: int
+    results: list[ConformityTestResult]
+    pass_rate: float
+    mean_correlation: float
+    std_correlation: float
+    correlations: list[float]
+    tolerance: float
+    timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "archetype_name": self.archetype_name,
+            "instrument": self.instrument,
+            "n_runs": self.n_runs,
+            "pass_rate": self.pass_rate,
+            "mean_correlation": self.mean_correlation,
+            "std_correlation": self.std_correlation,
+            "correlations": self.correlations,
+            "tolerance": self.tolerance,
+            "n_passed": sum(1 for r in self.results if r.passed),
+            "n_failed": sum(1 for r in self.results if not r.passed),
+            "timestamp": self.timestamp,
+        }
+
+    def summary(self) -> str:
+        """Return a formatted summary string."""
+        n_passed = sum(1 for r in self.results if r.passed)
+        return (
+            f"{self.archetype_name} ({self.n_runs} runs): "
+            f"pass_rate={self.pass_rate:.1%}, "
+            f"r={self.mean_correlation:.3f}±{self.std_correlation:.3f}"
+            f"having passed {n_passed} out of {self.n_runs} tests."
+        )
+
+
+@dataclass
 class BaselineResult:
     """Result of baseline (non-RnB) agent test."""
 
@@ -284,6 +326,8 @@ class ValidationRunner:
         agent: AgentProtocol | None = None,
         warm_up_turns: int = 5,
         tolerance: float | None = None,
+        max_retries: int = 3,
+        verbose: bool = False,
     ) -> ConformityTestResult:
         """
         Test personality conformity against an archetype.
@@ -294,6 +338,8 @@ class ValidationRunner:
             agent: Optional pre-created agent (else created from factory)
             warm_up_turns: Number of conversation turns before assessment
             tolerance: Override default tolerance for this test
+            max_retries: Number of retry attempts for invalid LLM responses
+            verbose: If True, log raw LLM responses
 
         Returns:
             ConformityTestResult with assessment and conformity metrics
@@ -320,7 +366,12 @@ class ValidationRunner:
 
         # Use agent's system prompt for assessment context
         system_prompt = agent.get_system_prompt()
-        assessment = assessor.assess(self.llm_client, system_prompt=system_prompt)
+        assessment = assessor.assess(
+            self.llm_client,
+            system_prompt=system_prompt,
+            max_retries=max_retries,
+            verbose=verbose,
+        )
 
         # Check conformity with tolerance parameter
         conformity = assessor.check_conformity(assessment, archetype, tolerance=tol)
@@ -337,6 +388,82 @@ class ValidationRunner:
             assessment=assessment,
             conformity=conformity,
             passed=passed,
+            tolerance=tol,
+        )
+
+    def test_conformity_n_runs(
+        self,
+        archetype_name: str,
+        n_runs: int = 10,
+        instrument: str = "tipi",
+        warm_up_turns: int = 5,
+        tolerance: float | None = None,
+        max_retries: int = 3,
+        verbose: bool = False,
+        progress_callback: Callable[[int, int], None] | None = None,
+    ) -> NRunResult:
+        """
+        Run conformity test N times to assess statistical reliability.
+
+        This addresses natural variability in LLM responses by running
+        multiple tests and computing aggregate statistics.
+
+        Args:
+            archetype_name: Name of archetype to test against
+            n_runs: Number of test runs (default 10, recommended 10-100)
+            instrument: Assessment instrument ("tipi" or "bfi2s")
+            warm_up_turns: Number of conversation turns before each assessment
+            tolerance: Override default tolerance for this test
+            max_retries: Number of retry attempts per run
+            verbose: If True, log raw LLM responses
+            progress_callback: Optional callback(current_run, total_runs)
+
+        Returns:
+            NRunResult with aggregate statistics
+        """
+        import statistics
+
+        results: list[ConformityTestResult] = []
+        correlations: list[float] = []
+        tol = tolerance if tolerance is not None else self.tolerance
+
+        for i in range(n_runs):
+            if progress_callback:
+                progress_callback(i + 1, n_runs)
+
+            try:
+                result = self.test_conformity(
+                    archetype_name=archetype_name,
+                    instrument=instrument,
+                    warm_up_turns=warm_up_turns,
+                    tolerance=tol,
+                    max_retries=max_retries,
+                    verbose=verbose,
+                )
+                results.append(result)
+                correlations.append(result.conformity.correlation)
+            except Exception as e:
+                self.logger.warning(f"Run {i+1}/{n_runs} failed: {e}")
+                # Continue with remaining runs
+
+        if not results:
+            raise ValueError(f"All {n_runs} runs failed")
+
+        # Calculate statistics
+        n_passed = sum(1 for r in results if r.passed)
+        pass_rate = n_passed / len(results)
+        mean_corr = statistics.mean(correlations)
+        std_corr = statistics.stdev(correlations) if len(correlations) > 1 else 0.0
+
+        return NRunResult(
+            archetype_name=archetype_name,
+            instrument=instrument,
+            n_runs=len(results),
+            results=results,
+            pass_rate=pass_rate,
+            mean_correlation=mean_corr,
+            std_correlation=std_corr,
+            correlations=correlations,
             tolerance=tol,
         )
 

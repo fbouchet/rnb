@@ -452,19 +452,60 @@ class PersonalityAssessor:
         return cls.from_yaml(path)
 
     def assess_batch(
-        self, llm_client: LLMClient, system_prompt: str | None = None
+        self,
+        llm_client: LLMClient,
+        system_prompt: str | None = None,
+        max_retries: int = 3,
+        verbose: bool = False,
     ) -> AssessmentResult:
         """
         Assess personality using batch method (all items at once).
 
         This is the recommended method for efficiency.
+
+        Args:
+            llm_client: Client for generating responses
+            system_prompt: Optional system prompt for the agent
+            max_retries: Number of retry attempts for invalid responses
+            verbose: If True, print the raw LLM response
+
+        Returns:
+            AssessmentResult with domain scores
+
+        Raises:
+            ValueError: If all retry attempts fail
         """
+        import logging
+
+        logger = logging.getLogger(__name__)
+
         prompt = generate_batch_prompt(self.instrument)
 
-        response = llm_client.generate(prompt, system=system_prompt)
-        responses = parse_batch_response(response, self.instrument)
+        last_error = None
+        for attempt in range(max_retries):
+            response = llm_client.generate(prompt, system=system_prompt)
 
-        return self._calculate_scores(responses)
+            if verbose:
+                logger.info(f"[Attempt {attempt + 1}] Raw LLM response:\n{response}")
+
+            try:
+                responses = parse_batch_response(response, self.instrument)
+                return self._calculate_scores(responses)
+            except ValueError as e:
+                last_error = e
+                if attempt < max_retries - 1:
+                    logger.warning(
+                        f"[Attempt {attempt + 1}/{max_retries}] Invalid response: {e}. Retrying..."
+                    )
+                else:
+                    logger.error(
+                        f"[Attempt {attempt + 1}/{max_retries}] Invalid response: {e}. No more retries."
+                    )
+
+        # All retries exhausted
+        raise ValueError(
+            f"Failed after {max_retries} attempts. Last error: {last_error}"
+        )
 
     def assess_itemwise(
         self, llm_client: LLMClient, system_prompt: str | None = None
@@ -488,6 +529,8 @@ class PersonalityAssessor:
         llm_client: LLMClient,
         system_prompt: str | None = None,
         method: str = "batch",
+        max_retries: int = 3,
+        verbose: bool = False,
     ) -> AssessmentResult:
         """
         Assess personality using specified method.
@@ -496,9 +539,16 @@ class PersonalityAssessor:
             llm_client: Client for generating responses
             system_prompt: Optional system prompt for the agent
             method: "batch" (default) or "itemwise"
+            max_retries: Number of retry attempts for invalid responses
+            verbose: If True, print the raw LLM response
         """
         if method == "batch":
-            return self.assess_batch(llm_client, system_prompt)
+            return self.assess_batch(
+                llm_client,
+                system_prompt,
+                max_retries=max_retries,
+                verbose=verbose,
+            )
         elif method == "itemwise":
             return self.assess_itemwise(llm_client, system_prompt)
         else:
