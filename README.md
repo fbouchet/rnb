@@ -1054,6 +1054,91 @@ memory_store.add_user_memory(
 - Redis: "What is the agent's current mood?" → Instant lookup
 - ChromaDB: "What do we know about the user's preferences?" → Semantic search
 
+## 🧪 Personality Validation Framework
+
+The validation framework provides empirical testing of RnB agent personalities using
+standardized psychological instruments.
+
+### Quick Validation
+```python
+from rnb.validation import run_quick_validation
+
+# One-liner to test an archetype
+results = run_quick_validation("resilient", verbose=True)
+
+# Output:
+# ============================================================
+# Validation: resilient with TIPI
+# ============================================================
+# Correlation:        0.892
+# All within tol:     True
+# Tolerance used:     ±0.25
+# Passed:             ✓
+```
+
+### Full Validation Runner
+```python
+from rnb.validation import create_validation_runner
+
+runner = create_validation_runner(
+    provider="local",
+    model_name="llama3.2:3b",
+    tolerance=0.25,  # Adjustable at runtime
+)
+
+# Conformity test: Does agent match designed personality?
+result = runner.test_conformity("resilient", instrument="tipi")
+print(f"Correlation: {result.conformity.correlation:.2f}")
+print(f"Passed: {result.passed}")
+
+# Test with different tolerance
+result2 = runner.test_conformity("overcontrolled", tolerance=0.3)
+```
+
+### Supported Instruments
+
+| Instrument | Items | Scale | Reference |
+|------------|-------|-------|-----------|
+| **TIPI** | 10 | 1-7 | Gosling et al. (2003) |
+| **BFI-2-S** | 30 | 1-5 | Soto & John (2017) |
+
+### Literature-Grounded Archetypes (RUO)
+
+Based on Robins et al. (1996) and Asendorpf et al. (2001):
+
+| Archetype | Key Markers | Traits |
+|-----------|-------------|--------|
+| **Resilient** | Low N, high on others | Emotionally stable, well-adjusted |
+| **Overcontrolled** | High N, low E | Introverted, anxious |
+| **Undercontrolled** | Low C | Impulsive, disorganized |
+| **Average** | All near 0 | Control condition |
+
+### Statistical Methods (Pingouin)
+
+The framework uses [pingouin](https://pingouin-stats.org/) for validated statistics:
+
+- **Pearson/Spearman correlations** with 95% CI and p-values
+- **ICC (Intraclass Correlation)** for consistency testing
+  - ICC3 (two-way mixed, consistency) recommended
+  - Interpretation: <0.50 poor, 0.50-0.75 moderate, 0.75-0.90 good, >0.90 excellent
+- **Configurable tolerance** for conformity checks (default ±0.25 on RnB scale)
+
+### Validation Workflow
+
+```
+Designed Personality (Archetype)
+        ↓
+   RnB Agent Creation
+        ↓
+   Personality Assessment (TIPI/BFI-2-S)
+        ↓
+   Score → RnB Scale Conversion
+        ↓
+   Conformity Check (correlation + tolerance)
+        ↓
+   Pass/Fail + Detailed Metrics
+```
+
 
 ## 📚 Complete Examples
 
@@ -1243,19 +1328,19 @@ class CustomInfluence(InfluenceOperator):
 - [ ] **Conflict detection/resolution** (reinforcement/tension handling in operators outputs)
 - [x] ~~Additional trait operators~~ (superseded by gloss-based system)
 - [x] ~~Composite operators~~ (covered by archetypes)
+- [x] **Personality validation framework** (TIPI, BFI-2-S instruments)
+- [x] **Pingouin-based statistics** (ICC, correlations with confidence intervals)
+- [x] **Literature-grounded archetypes** (RUO: Resilient, Overcontrolled, Undercontrolled)
+- [x] **Configurable tolerance system** (runtime-adjustable conformity thresholds)
 - [ ] Mood/affect update rules (decay, event-driven changes)
-- [ ] Personality testing framework (TIPI, BFI-2)
 - [ ] Advanced examples (tutoring, customer service, collaborative agents)
 
 ### 📋 Phase 5: Research Publication (PLANNED)
-- [ ] Personality testing framework (TIPI, BFI-2 self-report validation)
 - [ ] Consistency metrics (drift, variance, cross-situation stability)
-- [ ] Empirical validation experiments
+- [ ] Empirical validation experiments with ValidationRunner
 - [ ] DailyDialog dataset evaluation
 - [ ] Cross-LLM consistency testing (GPT-4, Claude, Llama)
-- [ ] Statistical analysis
-
-
+- [ ] Statistical analysis of personality stability (ICC > 0.85 target)
 
 
 ## 📚 Project Structure
@@ -1273,11 +1358,14 @@ rnb4llm/
 │       │   ├── personality_resolver.py # High-level resolution pipeline
 │       │   ├── modifier_lexicon.py     # SO-CAL intensity modifiers
 │       │   ├── phrase_parser.py        # SpaCy-based phrase parsing + negation
-│       │   └── data/
-│       │       ├── neopiradj.yaml  # 876 personality adjectives
-│       │       ├── schemes.yaml    # 70 behavioral schemes
-│       │       ├── archetypes.yaml # Predefined personality profiles
-│       │       └── modifiers.yaml  # SO-CAL intensifier lexicon (~200 entries)
+│       │   ├── data/
+│       │   │   ├── neopiradj.yaml  # 876 personality adjectives
+│       │   │   ├── schemes.yaml    # 70 behavioral schemes
+│       │   │   ├── archetypes.yaml # Predefined RUO personality profiles
+│       │   │   └── modifiers.yaml  # SO-CAL intensifier lexicon (~200 entries)
+│       |   └── instruments/              # Personality Assessment Instruments
+│       |       ├── tipi.yaml            # Ten-Item Personality Inventory
+│       │       └── bfi2s.yaml           # BFI-2-S (30 items)
 │       │
 │       ├── personality/           # RnB Model M.A (Scheme-Level)
 │       │   ├── state.py           # PersonalityState (scheme storage)
@@ -1296,8 +1384,11 @@ rnb4llm/
 │       |   ├── gloss_operator.py  # GlossBasedInfluence, TraitGlossInfluence
 │       |   │
 │       |   ├── trait_based/       # Hardcoded FFM operators (legacy/comparison)
+|       |   |   ├── agreeableness.py
 │       |   │   ├── conscientiousness.py
-│       |   │   └── extraversion.py
+│       |   │   ├── extraversion.py
+│       |   │   ├── neuroticism.py
+│       |   │   └── openness.py
 │       |   │
 │       |   ├── affect_based/      # Relationship-specific operators
 │       |   │   ├── cooperation.py
@@ -1314,14 +1405,22 @@ rnb4llm/
 │       |   ├── client.py          # Model-agnostic LLM client
 │       |   └── exceptions.py      # LLM-specific exceptions
 |       |
-|       └── memory/                # RnB Model M Extensions
-│           ├── __init__.py
-│           ├── types.py           # Memory models (M.U, M.S, M.T)
-│           ├── backend.py         # ChromaDB vector storage
-│           └── store.py           # High-level memory interface
-│
+|       ├── memory/                # RnB Model M Extensions
+│       |   ├── __init__.py
+│       |   ├── types.py           # Memory models (M.U, M.S, M.T)
+│       |   ├── backend.py         # ChromaDB vector storage
+│       |   └── store.py           # High-level memory interface
+│       └── validation/            # Personality Validation Framework
+│           ├── __init__.py        # Public API
+│           ├── assessor.py        # PersonalityAssessor, instruments
+│           ├── metrics.py         # Pingouin-based ICC, correlations
+│           ├── runner.py          # ValidationRunner orchestration
+│           ├── integration.py     # RnB LLMClient/AgentFactory adapters
+│           └── tests/
+│               ├── conftest.py    # Pytest fixtures
+│               └── test_conformity.py
 ├── tests/
-│   ├── unit/                      # Unit tests (239 tests, 98% coverage)
+│   ├── unit/                      # Fast isolated tests
 │   │   ├── test_personality_backend.py
 │   │   ├── test_personality_store.py
 │   │   ├── test_personality_manager.py
@@ -1332,7 +1431,7 @@ rnb4llm/
 │   │   ├── test_affect_mood_operators.py
 │   │   └── test_llm_client.py
 │   │
-│   └── integration/               # Integration tests (8 tests with actual LLM)
+│   └── integration/              # LLM integration tests
 │       ├── conftest.py           # Shared fixtures
 │       ├── test_conscientiousness_effects.py
 │       ├── test_cooperation_effects.py
@@ -1393,6 +1492,14 @@ rnb4llm/
 ### Personality Psychology
 - Costa, P. T., & McCrae, R. R. (1992). *NEO PI-R: Revised NEO Personality Inventory*. Psychological Assessment Resources.
 - Gosling, S. D., Rentfrow, P. J., & Swann, W. B. (2003). *A very brief measure of the Big Five personality domains*. Journal of Research in Personality, 37(6), 504-528.
+- Soto, C. J., & John, O. P. (2017). *The next Big Five Inventory (BFI-2)*. Journal of Personality and Social Psychology, 113(1), 117-143.
+- Robins, R. W., John, O. P., Caspi, A., Moffitt, T. E., & Stouthamer-Loeber, M. (1996). *Resilient, overcontrolled, and undercontrolled boys*. Journal of Personality and Social Psychology, 70, 157-171.
+- Asendorpf, J. B., Borkenau, P., Ostendorf, F., & van Aken, M. A. (2001). *Carving personality description at its joints*. European Journal of Personality, 15, 169-198.
+
+### Statistics
+- Vallat, R. (2018). *Pingouin: statistics in Python*. Journal of Open Source Software, 3(31), 1026.
+- Shrout, P. E., & Fleiss, J. L. (1979). *Intraclass correlations*. Psychological Bulletin, 86(2), 420-428.
+- Koo, T. K., & Li, M. Y. (2016). *A guideline of selecting and reporting intraclass correlation coefficients*. Journal of Chiropractic Medicine, 15(2), 155-163.
 
 ### NLP & Sentiment Analysis
 - SpaCy: https://spacy.io/ (POS tagging, dependency parsing)
@@ -1408,6 +1515,9 @@ rnb4llm/
 - Anthropic Python SDK: https://github.com/anthropics/anthropic-sdk-python
 - Instructor: https://github.com/jxnl/instructor (structured outputs)
 - Ollama: https://ollama.ai/ (local model serving)
+- Pingouin: https://pingouin-stats.org/ (statistical analysis)
+- Redis: https://redis.io/
+- ChromaDB: https://www.trychroma.com/ (vector memory storage)
 
 ## 🤝 Contributing
 

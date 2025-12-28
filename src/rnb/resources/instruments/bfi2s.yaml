@@ -1,0 +1,376 @@
+# Big Five Inventory-2 Short Form (BFI-2-S)
+#
+# Reference:
+#   Soto, C. J., & John, O. P. (2017). Short and extra-short forms of the 
+#   Big Five Inventory-2: The BFI-2-S and BFI-2-XS. 
+#   Journal of Research in Personality, 68, 69-81.
+#
+# License: Free for non-commercial research use
+# Source: https://www.colby.edu/academics/departments-and-programs/psychology/research-opportunities/personality-lab/the-bfi-2/
+#
+# Copyright: BFI-2 items copyright 2015 by Oliver P. John and Christopher J. Soto.
+
+instrument:
+  name: "Big Five Inventory-2 Short Form"
+  acronym: "BFI-2-S"
+  version: "1.0"
+  items_count: 30
+  domains_count: 5
+  facets_count: 15  # 3 facets per domain
+  estimated_time_minutes: 3
+  
+  citation: |
+    Soto, C. J., & John, O. P. (2017). Short and extra-short forms of the 
+    Big Five Inventory-2: The BFI-2-S and BFI-2-XS. 
+    Journal of Research in Personality, 68, 69-81.
+  
+  license: "Free for non-commercial research use"
+  copyright: "BFI-2 items copyright 2015 by Oliver P. John and Christopher J. Soto"
+  
+  notes: |
+    BFI-2-S uses "Negative Emotionality" (equivalent to Neuroticism).
+    No inversion needed for RnB compatibility.
+    Facet scales have limited reliability with only 2 items each;
+    recommended for samples with N >= 400 for facet-level analysis.
+
+instructions: |
+  Here are a number of characteristics that may or may not apply to you. 
+  For example, do you agree that you are someone who likes to spend time 
+  with others? Please write a number next to each statement to indicate 
+  the extent to which you agree or disagree with that statement.
+
+scale:
+  min: 1
+  max: 5
+  midpoint: 3.0
+  labels:
+    1: "Disagree strongly"
+    2: "Disagree a little"
+    3: "Neutral; no opinion"
+    4: "Agree a little"
+    5: "Agree strongly"
+
+stem: "I am someone who..."
+
+items:
+  # Extraversion items (6 items: 2 per facet)
+  - id: 1
+    text: "Tends to be quiet"
+    domain: "extraversion"
+    facet: "sociability"
+    reversed: true
+    
+  - id: 6
+    text: "Is dominant, acts as a leader"
+    domain: "extraversion"
+    facet: "assertiveness"
+    reversed: false
+    
+  - id: 11
+    text: "Is full of energy"
+    domain: "extraversion"
+    facet: "energy_level"
+    reversed: false
+    
+  - id: 16
+    text: "Is outgoing, sociable"
+    domain: "extraversion"
+    facet: "sociability"
+    reversed: false
+    
+  - id: 21
+    text: "Prefers to have others take charge"
+    domain: "extraversion"
+    facet: "assertiveness"
+    reversed: true
+    
+  - id: 26
+    text: "Is less active than other people"
+    domain: "extraversion"
+    facet: "energy_level"
+    reversed: true
+
+  # Agreeableness items (6 items: 2 per facet)
+  - id: 2
+    text: "Is compassionate, has a soft heart"
+    domain: "agreeableness"
+    facet: "compassion"
+    reversed: false
+    
+  - id: 7
+    text: "Is sometimes rude to others"
+    domain: "agreeableness"
+    facet: "respectfulness"
+    reversed: true
+    
+  - id: 12
+    text: "Assumes the best about people"
+    domain: "agreeableness"
+    facet: "trust"
+    reversed: false
+    
+  - id: 17
+    text: "Can be cold and uncaring"
+    domain: "agreeableness"
+    facet: "compassion"
+    reversed: true
+    
+  - id: 22
+    text: "Is respectful, treats others with respect"
+    domain: "agreeableness"
+    facet: "respectfulness"
+    reversed: false
+    
+  - id: 27
+    text: "Tends to find fault with others"
+    domain: "agreeableness"
+    facet: "trust"
+    reversed: true
+
+  # Conscientiousness items (6 items: 2 per facet)
+  - id: 3
+    text: "Tends to be disorganized"
+    domain: "conscientiousness"
+    facet: "organization"
+    reversed: true
+    
+  - id: 8
+    text: "Has difficulty getting started on tasks"
+    domain: "conscientiousness"
+    facet: "productiveness"
+    reversed: true
+    
+  - id: 13
+    text: "Is reliable, can always be counted on"
+    domain: "conscientiousness"
+    facet: "responsibility"
+    reversed: false
+    
+  - id: 18
+    text: "Keeps things neat and tidy"
+    domain: "conscientiousness"
+    facet: "organization"
+    reversed: false
+    
+  - id: 23
+    text: "Is persistent, works until the task is finished"
+    domain: "conscientiousness"
+    facet: "productiveness"
+    reversed: false
+    
+  - id: 28
+    text: "Can be somewhat careless"
+    domain: "conscientiousness"
+    facet: "responsibility"
+    reversed: true
+
+  # Negative Emotionality items (6 items: 2 per facet)
+  # Note: This IS Neuroticism - no inversion needed
+  - id: 4
+    text: "Worries a lot"
+    domain: "neuroticism"  # BFI-2 calls this "Negative Emotionality"
+    facet: "anxiety"
+    reversed: false
+    
+  - id: 9
+    text: "Tends to feel depressed, blue"
+    domain: "neuroticism"
+    facet: "depression"
+    reversed: false
+    
+  - id: 14
+    text: "Is emotionally stable, not easily upset"
+    domain: "neuroticism"
+    facet: "emotional_volatility"
+    reversed: true
+    
+  - id: 19
+    text: "Is relaxed, handles stress well"
+    domain: "neuroticism"
+    facet: "anxiety"
+    reversed: true
+    
+  - id: 24
+    text: "Feels secure, comfortable with self"
+    domain: "neuroticism"
+    facet: "depression"
+    reversed: true
+    
+  - id: 29
+    text: "Is temperamental, gets emotional easily"
+    domain: "neuroticism"
+    facet: "emotional_volatility"
+    reversed: false
+
+  # Open-Mindedness items (6 items: 2 per facet)
+  - id: 5
+    text: "Is fascinated by art, music, or literature"
+    domain: "openness"  # BFI-2 calls this "Open-Mindedness"
+    facet: "aesthetic_sensitivity"
+    reversed: false
+    
+  - id: 10
+    text: "Has little interest in abstract ideas"
+    domain: "openness"
+    facet: "intellectual_curiosity"
+    reversed: true
+    
+  - id: 15
+    text: "Is original, comes up with new ideas"
+    domain: "openness"
+    facet: "creative_imagination"
+    reversed: false
+    
+  - id: 20
+    text: "Has few artistic interests"
+    domain: "openness"
+    facet: "aesthetic_sensitivity"
+    reversed: true
+    
+  - id: 25
+    text: "Is complex, a deep thinker"
+    domain: "openness"
+    facet: "intellectual_curiosity"
+    reversed: false
+    
+  - id: 30
+    text: "Has little creativity"
+    domain: "openness"
+    facet: "creative_imagination"
+    reversed: true
+
+# Scoring configuration
+scoring:
+  method: "mean"  # Average of items per domain/facet
+  
+  domains:
+    extraversion:
+      items: [1, 6, 11, 16, 21, 26]
+      reversed_items: [1, 21, 26]
+      
+    agreeableness:
+      items: [2, 7, 12, 17, 22, 27]
+      reversed_items: [7, 17, 27]
+      
+    conscientiousness:
+      items: [3, 8, 13, 18, 23, 28]
+      reversed_items: [3, 8, 28]
+      
+    neuroticism:  # BFI-2 calls this "Negative Emotionality"
+      items: [4, 9, 14, 19, 24, 29]
+      reversed_items: [14, 19, 24]
+      
+    openness:  # BFI-2 calls this "Open-Mindedness"
+      items: [5, 10, 15, 20, 25, 30]
+      reversed_items: [10, 20, 30]
+
+  facets:
+    # Extraversion facets
+    sociability:
+      domain: "extraversion"
+      items: [1, 16]
+      reversed_items: [1]
+      
+    assertiveness:
+      domain: "extraversion"
+      items: [6, 21]
+      reversed_items: [21]
+      
+    energy_level:
+      domain: "extraversion"
+      items: [11, 26]
+      reversed_items: [26]
+      
+    # Agreeableness facets
+    compassion:
+      domain: "agreeableness"
+      items: [2, 17]
+      reversed_items: [17]
+      
+    respectfulness:
+      domain: "agreeableness"
+      items: [7, 22]
+      reversed_items: [7]
+      
+    trust:
+      domain: "agreeableness"
+      items: [12, 27]
+      reversed_items: [27]
+      
+    # Conscientiousness facets
+    organization:
+      domain: "conscientiousness"
+      items: [3, 18]
+      reversed_items: [3]
+      
+    productiveness:
+      domain: "conscientiousness"
+      items: [8, 23]
+      reversed_items: [8]
+      
+    responsibility:
+      domain: "conscientiousness"
+      items: [13, 28]
+      reversed_items: [28]
+      
+    # Neuroticism facets
+    anxiety:
+      domain: "neuroticism"
+      items: [4, 19]
+      reversed_items: [19]
+      
+    depression:
+      domain: "neuroticism"
+      items: [9, 24]
+      reversed_items: [24]
+      
+    emotional_volatility:
+      domain: "neuroticism"
+      items: [14, 29]
+      reversed_items: [14]
+      
+    # Openness facets
+    aesthetic_sensitivity:
+      domain: "openness"
+      items: [5, 20]
+      reversed_items: [20]
+      
+    intellectual_curiosity:
+      domain: "openness"
+      items: [10, 25]
+      reversed_items: [10]
+      
+    creative_imagination:
+      domain: "openness"
+      items: [15, 30]
+      reversed_items: [30]
+
+  # Conversion to RnB scale [-1, 1]
+  # Formula: rnb_score = (bfi_score - midpoint) / half_range
+  # Where: midpoint = 3.0, half_range = 2.0
+  # Example: BFI 5 -> (5-3)/2 = 1.0, BFI 1 -> (1-3)/2 = -1.0
+  rnb_conversion:
+    midpoint: 3.0
+    half_range: 2.0
+    
+  # No inversion needed - BFI-2 uses Negative Emotionality directly
+  neuroticism_inversion: false
+
+# Facet-to-RnB-scheme mapping
+# Maps BFI-2 facets to corresponding RnB scheme categories
+facet_scheme_mapping:
+  sociability: "E1"      # Warmth/Friendliness
+  assertiveness: "E3"    # Assertiveness
+  energy_level: "E4"     # Activity
+  compassion: "A3"       # Altruism
+  respectfulness: "A4"   # Compliance
+  trust: "A1"            # Trust
+  organization: "C2"     # Order
+  productiveness: "C4"   # Achievement-Striving
+  responsibility: "C3"   # Dutifulness
+  anxiety: "N1"          # Anxiety
+  depression: "N3"       # Depression
+  emotional_volatility: "N5"  # Impulsiveness
+  aesthetic_sensitivity: "O2" # Aesthetics
+  intellectual_curiosity: "O5" # Ideas
+  creative_imagination: "O1"  # Fantasy

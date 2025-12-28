@@ -1,0 +1,161 @@
+# Ten-Item Personality Inventory (TIPI)
+# 
+# Reference:
+#   Gosling, S. D., Rentfrow, P. J., & Swann, W. B., Jr. (2003). 
+#   A Very Brief Measure of the Big Five Personality Domains. 
+#   Journal of Research in Personality, 37, 504-528.
+#
+# License: Public domain - free for any use without permission
+# Source: https://gosling.psy.utexas.edu/scales-weve-developed/ten-item-personality-measure-tipi/
+
+instrument:
+  name: "Ten-Item Personality Inventory"
+  acronym: "TIPI"
+  version: "1.0"
+  items_count: 10
+  domains_count: 5
+  facets_count: 0  # TIPI does not measure facets
+  estimated_time_minutes: 1
+  
+  citation: |
+    Gosling, S. D., Rentfrow, P. J., & Swann, W. B., Jr. (2003). 
+    A Very Brief Measure of the Big Five Personality Domains. 
+    Journal of Research in Personality, 37, 504-528.
+  
+  license: "Public domain - free for any use"
+  
+  notes: |
+    TIPI measures Emotional Stability (inverse of Neuroticism).
+    For RnB compatibility, scores are converted to Neuroticism via:
+    neuroticism_score = scale_max + scale_min - emotional_stability_score
+
+instructions: |
+  Here are a number of personality traits that may or may not apply to you. 
+  Please write a number next to each statement to indicate the extent to which 
+  you agree or disagree with that statement. You should rate the extent to which 
+  the pair of traits applies to you, even if one characteristic applies more 
+  strongly than the other.
+
+scale:
+  min: 1
+  max: 7
+  midpoint: 4.0
+  labels:
+    1: "Disagree strongly"
+    2: "Disagree moderately"
+    3: "Disagree a little"
+    4: "Neither agree nor disagree"
+    5: "Agree a little"
+    6: "Agree moderately"
+    7: "Agree strongly"
+
+stem: "I see myself as:"
+
+items:
+  - id: 1
+    text: "Extraverted, enthusiastic"
+    domain: "extraversion"
+    reversed: false
+    
+  - id: 2
+    text: "Critical, quarrelsome"
+    domain: "agreeableness"
+    reversed: true
+    
+  - id: 3
+    text: "Dependable, self-disciplined"
+    domain: "conscientiousness"
+    reversed: false
+    
+  - id: 4
+    text: "Anxious, easily upset"
+    domain: "emotional_stability"  # Note: This is inverse of Neuroticism
+    reversed: true
+    
+  - id: 5
+    text: "Open to new experiences, complex"
+    domain: "openness"
+    reversed: false
+    
+  - id: 6
+    text: "Reserved, quiet"
+    domain: "extraversion"
+    reversed: true
+    
+  - id: 7
+    text: "Sympathetic, warm"
+    domain: "agreeableness"
+    reversed: false
+    
+  - id: 8
+    text: "Disorganized, careless"
+    domain: "conscientiousness"
+    reversed: true
+    
+  - id: 9
+    text: "Calm, emotionally stable"
+    domain: "emotional_stability"  # Note: This is inverse of Neuroticism
+    reversed: false
+    
+  - id: 10
+    text: "Conventional, uncreative"
+    domain: "openness"
+    reversed: true
+
+# Scoring configuration
+scoring:
+  method: "mean"  # Average of items per domain
+  
+  domains:
+    extraversion:
+      items: [1, 6]
+      reversed_items: [6]
+      
+    agreeableness:
+      items: [2, 7]
+      reversed_items: [2]
+      
+    conscientiousness:
+      items: [3, 8]
+      reversed_items: [8]
+      
+    emotional_stability:
+      items: [4, 9]
+      reversed_items: [4]
+      # Note: To get Neuroticism, invert final score: N = 8 - ES
+      
+    openness:
+      items: [5, 10]
+      reversed_items: [10]
+
+  # Conversion to RnB scale [-1, 1]
+  # Formula: rnb_score = (tipi_score - midpoint) / half_range
+  # Where: midpoint = 4.0, half_range = 3.0
+  # Example: TIPI 7 -> (7-4)/3 = 1.0, TIPI 1 -> (1-4)/3 = -1.0
+  rnb_conversion:
+    midpoint: 4.0
+    half_range: 3.0
+    
+  # For Neuroticism specifically (inverted from Emotional Stability):
+  # neuroticism_rnb = -1 * emotional_stability_rnb
+  neuroticism_inversion: true
+
+# Normative data from Gosling et al. (2003), Appendix B
+# Based on N=1812 US university students
+norms:
+  source: "Gosling et al. (2003), Appendix B, all ethnicities"
+  sample_size: 1812
+  
+  means:
+    extraversion: 4.44
+    agreeableness: 5.23
+    conscientiousness: 5.40
+    emotional_stability: 4.83
+    openness: 5.38
+    
+  standard_deviations:
+    extraversion: 1.45
+    agreeableness: 1.11
+    conscientiousness: 1.32
+    emotional_stability: 1.42
+    openness: 1.07
