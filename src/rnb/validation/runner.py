@@ -443,7 +443,7 @@ class ValidationRunner:
                 results.append(result)
                 correlations.append(result.conformity.correlation)
             except Exception as e:
-                self.logger.warning(f"Run {i+1}/{n_runs} failed: {e}")
+                logger.warning(f"Run {i+1}/{n_runs} failed: {e}")
                 # Continue with remaining runs
 
         if not results:

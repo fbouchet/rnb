@@ -465,7 +465,12 @@ def demo_standalone_assessment():
 
 
 def demo_n_run_validation(
-    provider: str, model_name: str, n_runs: int = 10, verbose: bool = False
+    provider: str,
+    model_name: str,
+    n_runs: int = 10,
+    verbose: bool = False,
+    archetype: str = "resilient",
+    show_prompt: bool = False,
 ):
     """Demonstrate N-run validation for statistical reliability."""
     rule("8. N-Run Statistical Validation")
@@ -486,11 +491,25 @@ def demo_n_run_validation(
             tolerance=0.25,
         )
 
-        # Test resilient archetype with N runs
-        archetype = "resilient"
+        # Validate archetype exists
+        if archetype not in runner.archetypes:
+            say_system(f"Unknown archetype: {archetype}")
+            say_system(f"Available archetypes: {list(runner.archetypes.keys())}")
+            return
+
         say_system(f"Testing '{archetype}' archetype with {n_runs} runs...")
         say_system("(This may take a few minutes)")
         blank(1)
+
+        # Show the system prompt if requested
+        if show_prompt:
+            say_system("=== RnB SYSTEM PROMPT ===")
+            # Create a temporary agent to get the prompt
+            temp_agent = runner.agent_factory.from_archetype(archetype)
+            system_prompt = temp_agent.get_system_prompt()
+            say_model(f"  {system_prompt}")
+            say_system("=" * 60)
+            blank(1)
 
         def progress_callback(current: int, total: int):
             say_model(f"  Run {current}/{total}...")
@@ -521,13 +540,67 @@ def demo_n_run_validation(
         say_model(f"  Max correlation:    {max(result.correlations):.3f}")
         blank(1)
 
-        # Show distribution of correlations
-        say_system("Correlation distribution:")
+        # Show distribution of correlations with trait detail
+        say_system("Per-run results:")
+        say_model("  (Pass requires: r ≥ 0.7 AND all 5 traits within ±tolerance)")
+        blank(1)
         for i, corr in enumerate(result.correlations, 1):
-            passed = result.results[i - 1].passed
+            res = result.results[i - 1]
+            passed = res.passed
             status = "✓" if passed else "✗"
-            bar = "█" * int(max(0, corr + 1) * 10)  # Scale -1 to 1 -> 0 to 20
-            say_model(f"  Run {i:2}: r={corr:+.3f} {bar} {status}")
+
+            # Count traits within tolerance
+            n_within = sum(res.conformity.within_tolerance.values())
+            n_total = len(res.conformity.within_tolerance)
+            traits_status = f"{n_within}/{n_total} traits"
+
+            # Show which traits failed if any
+            if n_within < n_total:
+                failed_traits = [
+                    t for t, w in res.conformity.within_tolerance.items() if not w
+                ]
+                failed_str = ",".join(t[:3].upper() for t in failed_traits)  # O,C,E,A,N
+                say_model(
+                    f"  Run {i:2}: r={corr:+.3f}  {traits_status}  {status}  (failed: {failed_str})"
+                )
+            else:
+                say_model(f"  Run {i:2}: r={corr:+.3f}  {traits_status}  {status}")
+
+        blank(1)
+
+        # Show WHY tests are failing (aggregate trait deviations)
+        if result.pass_rate < 1.0 and result.results:
+            say_system("Trait Analysis (across all runs):")
+            say_model(
+                "  Pass condition: correlation ≥ 0.7 AND all traits within ±tolerance"
+            )
+            blank(1)
+
+            # Aggregate which traits fail most often
+            trait_failures = {}
+            trait_deviations = {}
+            for res in result.results:
+                for trait, within in res.conformity.within_tolerance.items():
+                    if trait not in trait_failures:
+                        trait_failures[trait] = 0
+                        trait_deviations[trait] = []
+                    if not within:
+                        trait_failures[trait] += 1
+                    dev = res.conformity.deviations.get(trait, 0)
+                    trait_deviations[trait].append(dev)
+
+            # Show per-trait analysis
+            first_result = result.results[0]
+            say_system("  Per-trait conformity:")
+            for trait in sorted(trait_failures.keys()):
+                designed = first_result.conformity.designed_traits.get(trait, 0)
+                fail_count = trait_failures[trait]
+                fail_pct = fail_count / len(result.results) * 100
+                avg_dev = sum(trait_deviations[trait]) / len(trait_deviations[trait])
+                status = "✓" if fail_count == 0 else "✗"
+                say_model(
+                    f"    {trait:18} designed={designed:+.2f}  avg_dev={avg_dev:+.2f}  fails={fail_count:2}/{len(result.results)} ({fail_pct:5.1f}%) {status}"
+                )
 
         blank(1)
         say_system("Interpretation:")
@@ -537,6 +610,8 @@ def demo_n_run_validation(
             say_model("  ~ Moderate reliability: 50-80% of runs passed")
         else:
             say_model("  ✗ Low reliability: <50% of runs passed")
+            if result.mean_correlation >= 0.7:
+                say_model("  Note: High correlation but traits outside tolerance range")
 
         if result.std_correlation < 0.1:
             say_model("  ✓ Low variance: Std dev < 0.1")
@@ -550,6 +625,243 @@ def demo_n_run_validation(
         say_system("The integration module requires full RnB package context.")
     except Exception as e:
         say_system(f"N-run validation failed: {e}")
+        import traceback
+
+        traceback.print_exc()
+
+
+def demo_baseline_comparison(
+    provider: str,
+    model_name: str,
+    n_runs: int = 10,
+    verbose: bool = False,
+    archetype: str = "resilient",
+):
+    """Compare RnB-backed agents vs baseline (pure prompt) agents."""
+    rule("9. RnB vs Baseline Comparison")
+
+    say_system("Comparing personality conformity:")
+    say_system("  • RnB: Personality state + influence operators")
+    say_system("  • Baseline: Pure prompt description only")
+    say_system(f"Using {provider}/{model_name}, archetype: {archetype}")
+    blank(1)
+
+    try:
+        import statistics
+
+        from rnb.validation import (
+            # PersonalityAssessor,
+            create_validation_runner,
+            generate_pure_prompt_system,
+            get_archetypes_path,
+            load_archetypes,
+        )
+        from rnb.validation.integration import LLMClientAdapter
+
+        # Load archetype
+        archetypes = load_archetypes(get_archetypes_path())
+        if archetype not in archetypes:
+            say_system(f"Unknown archetype: {archetype}")
+            say_system(f"Available: {list(archetypes.keys())}")
+            return
+
+        arch_config = archetypes[archetype]
+
+        # Create runner for RnB tests
+        runner = create_validation_runner(
+            provider=provider,
+            model_name=model_name,
+            tolerance=0.25,
+        )
+
+        # Create LLM client for baseline tests
+        llm_client = LLMClientAdapter.from_provider(provider, model_name)
+        assessor = runner.get_assessor("tipi")
+
+        # Show the two system prompts
+        say_system("=== SYSTEM PROMPTS ===")
+        blank(1)
+
+        # Baseline prompt
+        baseline_prompt = generate_pure_prompt_system(arch_config)
+        say_system("BASELINE (pure prompt):")
+        for line in baseline_prompt.split("\n"):
+            say_model(f"  {line}")
+        blank(1)
+
+        # RnB prompt (from a temporary agent)
+        temp_agent = runner.agent_factory.from_archetype(archetype)
+        rnb_prompt = temp_agent.get_system_prompt()
+        say_system("RnB (with influence operators):")
+        for line in rnb_prompt.split("\n")[:15]:  # First 15 lines
+            say_model(f"  {line}")
+        if rnb_prompt.count("\n") > 15:
+            say_model(f"  ... ({rnb_prompt.count(chr(10)) - 15} more lines)")
+
+        say_system("=" * 60)
+        blank(1)
+
+        # =====================================================================
+        # Run RnB tests
+        # =====================================================================
+        say_system(f"Running {n_runs} tests WITH RnB...")
+
+        rnb_results = []
+        rnb_correlations = []
+
+        for i in range(n_runs):
+            say_model(f"  RnB run {i+1}/{n_runs}...")
+            try:
+                result = runner.test_conformity(
+                    archetype_name=archetype,
+                    instrument="tipi",
+                    tolerance=0.25,
+                    verbose=verbose,
+                )
+                rnb_results.append(result)
+                rnb_correlations.append(result.conformity.correlation)
+            except Exception as e:
+                say_model(f"    Failed: {e}")
+
+        blank(1)
+
+        # =====================================================================
+        # Run Baseline tests
+        # =====================================================================
+        say_system(f"Running {n_runs} tests WITHOUT RnB (baseline)...")
+
+        baseline_results = []
+        baseline_correlations = []
+
+        for i in range(n_runs):
+            say_model(f"  Baseline run {i+1}/{n_runs}...")
+            try:
+                assessment = assessor.assess(
+                    llm_client,
+                    system_prompt=baseline_prompt,
+                    verbose=verbose,
+                )
+                conformity = assessor.check_conformity(
+                    assessment, arch_config, tolerance=0.25
+                )
+                passed = (
+                    conformity.correlation >= 0.7 and conformity.all_within_tolerance
+                )
+
+                baseline_results.append(
+                    {
+                        "assessment": assessment,
+                        "conformity": conformity,
+                        "passed": passed,
+                    }
+                )
+                baseline_correlations.append(conformity.correlation)
+            except Exception as e:
+                say_model(f"    Failed: {e}")
+
+        blank(1)
+
+        # =====================================================================
+        # Compare results
+        # =====================================================================
+        say_system("=" * 70)
+        say_system("                    COMPARISON RESULTS")
+        say_system("=" * 70)
+        blank(1)
+
+        # Calculate statistics
+        def calc_stats(correlations, results_list, is_rnb=True):
+            if not correlations:
+                return None
+
+            if is_rnb:
+                n_passed = sum(1 for r in results_list if r.passed)
+            else:
+                n_passed = sum(1 for r in results_list if r["passed"])
+
+            return {
+                "n": len(correlations),
+                "pass_rate": n_passed / len(correlations) if correlations else 0,
+                "mean_r": statistics.mean(correlations),
+                "std_r": statistics.stdev(correlations) if len(correlations) > 1 else 0,
+                "min_r": min(correlations),
+                "max_r": max(correlations),
+            }
+
+        rnb_stats = calc_stats(rnb_correlations, rnb_results, is_rnb=True)
+        baseline_stats = calc_stats(
+            baseline_correlations, baseline_results, is_rnb=False
+        )
+
+        # Display comparison table
+        say_system(f"{'Metric':<25} {'RnB':>15} {'Baseline':>15} {'Δ':>12}")
+        say_system("-" * 70)
+
+        if rnb_stats and baseline_stats:
+            # Pass rate
+            delta_pass = rnb_stats["pass_rate"] - baseline_stats["pass_rate"]
+            delta_sign = "+" if delta_pass > 0 else ""
+            say_model(
+                f"{'Pass rate':<25} {rnb_stats['pass_rate']:>14.1%} {baseline_stats['pass_rate']:>14.1%} {delta_sign}{delta_pass:>11.1%}"
+            )
+
+            # Mean correlation
+            delta_r = rnb_stats["mean_r"] - baseline_stats["mean_r"]
+            delta_sign = "+" if delta_r > 0 else ""
+            say_model(
+                f"{'Mean correlation':<25} {rnb_stats['mean_r']:>15.3f} {baseline_stats['mean_r']:>15.3f} {delta_sign}{delta_r:>11.3f}"
+            )
+
+            # Std deviation
+            delta_std = rnb_stats["std_r"] - baseline_stats["std_r"]
+            delta_sign = "+" if delta_std > 0 else ""
+            # better_std = "←" if rnb_stats["std_r"] < baseline_stats["std_r"] else "→"
+            say_model(
+                f"{'Std deviation':<25} {rnb_stats['std_r']:>15.3f} {baseline_stats['std_r']:>15.3f} {delta_sign}{delta_std:>11.3f}"
+            )
+
+            # Range
+            say_model(
+                f"{'Min correlation':<25} {rnb_stats['min_r']:>15.3f} {baseline_stats['min_r']:>15.3f}"
+            )
+            say_model(
+                f"{'Max correlation':<25} {rnb_stats['max_r']:>15.3f} {baseline_stats['max_r']:>15.3f}"
+            )
+
+            blank(1)
+            say_system("=" * 70)
+
+            # Interpretation
+            say_system("Interpretation:")
+
+            if rnb_stats["pass_rate"] > baseline_stats["pass_rate"]:
+                say_model(f"  ✓ RnB improves pass rate by {delta_pass:.1%}")
+            elif rnb_stats["pass_rate"] < baseline_stats["pass_rate"]:
+                say_model(f"  ✗ Baseline has higher pass rate by {-delta_pass:.1%}")
+            else:
+                say_model("  ~ Pass rates are equal")
+
+            if rnb_stats["std_r"] < baseline_stats["std_r"]:
+                say_model("  ✓ RnB is more consistent (lower variance)")
+            elif rnb_stats["std_r"] > baseline_stats["std_r"]:
+                say_model("  ✗ Baseline is more consistent (lower variance)")
+            else:
+                say_model("  ~ Variance is similar")
+
+            if rnb_stats["mean_r"] > baseline_stats["mean_r"]:
+                say_model("  ✓ RnB has higher mean correlation")
+            elif rnb_stats["mean_r"] < baseline_stats["mean_r"]:
+                say_model("  ✗ Baseline has higher mean correlation")
+            else:
+                say_model("  ~ Mean correlations are similar")
+        else:
+            say_system("Insufficient data for comparison")
+
+    except ImportError as e:
+        say_system(f"Import error: {e}")
+        say_system("The integration module requires full RnB package context.")
+    except Exception as e:
+        say_system(f"Baseline comparison failed: {e}")
         import traceback
 
         traceback.print_exc()
@@ -613,7 +925,7 @@ def main():
     parser.add_argument(
         "--only",
         type=int,
-        choices=[1, 2, 3, 4, 5, 6, 7, 8],
+        choices=[1, 2, 3, 4, 5, 6, 7, 8, 9],
         help="Run only specific demo (1-8)",
     )
     parser.add_argument(
@@ -626,6 +938,16 @@ def main():
         type=int,
         default=10,
         help="Number of runs for N-run validation (default: 10)",
+    )
+    parser.add_argument(
+        "--archetype",
+        default="resilient",
+        help="Archetype to test (default: resilient). Options: resilient, overcontrolled, undercontrolled, average, helpful_assistant",
+    )
+    parser.add_argument(
+        "--show-prompt",
+        action="store_true",
+        help="Show the RnB system prompt sent to the LLM",
     )
 
     args = parser.parse_args()
@@ -657,7 +979,23 @@ def main():
         (
             8,
             lambda: demo_n_run_validation(
-                args.provider, args.model, args.n_runs, args.verbose
+                args.provider,
+                args.model,
+                args.n_runs,
+                args.verbose,
+                args.archetype,
+                args.show_prompt,
+            ),
+            True,
+        ),
+        (
+            9,
+            lambda: demo_baseline_comparison(
+                args.provider,
+                args.model,
+                args.n_runs,
+                args.verbose,
+                args.archetype,
             ),
             True,
         ),
